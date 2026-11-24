@@ -61,7 +61,9 @@ node skills/trueline/scripts/report.mjs \
 ```
 
 The same three commands work for `landing`, `form` and `dashboard` (dashboard
-writes `RAPPORT.md`).
+writes `RAPPORT.md`). Regenerating the root report drops its maintainer notes;
+add the `Fait`, `Captures`, `Limites` and `Ce qui reste à Vidhal` sections back
+before running `npm run lint`.
 
 ## Screenshots and GIF
 

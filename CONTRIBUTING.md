@@ -26,6 +26,8 @@ folder and runnable with Node 22.
 3. Add or adjust the fixture in `scripts/check-skill.mjs`.
 4. Re-scan the examples. The before/after bands are part of the check.
 5. Regenerate `RAPPORT.md` and `examples/reports/` if the example scores changed.
+   The root report also carries `## Fait`, `## Captures`, `## Limites` and
+   `## Ce qui reste à Vidhal`; keep them, and `npm run lint` will check them.
 
 ## Change an example
 
