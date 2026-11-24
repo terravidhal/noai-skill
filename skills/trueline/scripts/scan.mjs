@@ -563,7 +563,8 @@ function buildStatic(html) {
       for (const [key, value] of Object.entries(expandStyle(declared))) style[key] = resolveVars(value, vars);
       const parentStyle = parentIndex >= 0 ? elements[parentIndex].inheritedStyle || {} : {};
       for (const key of ["color", "fontSize", "fontWeight", "lineHeight", "letterSpacing", "textTransform", "textAlign"]) {
-        if (style[key] === undefined && parentStyle[key] !== undefined) style[key] = parentStyle[key];
+        if (style[key] !== undefined && style[key] !== "inherit") continue;
+        if (parentStyle[key] !== undefined) style[key] = parentStyle[key];
       }
       const display = style.display || (INLINE.has(child.tag) ? "inline" : "block");
       const hidden = hiddenByParent || display === "none" || style.visibility === "hidden";

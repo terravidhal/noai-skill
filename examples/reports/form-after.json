@@ -1,0 +1,116 @@
+{
+  "rubric": "1",
+  "tool": "trueline",
+  "toolVersion": "1.0.0",
+  "input": "examples/after/form.html",
+  "mode": "dom",
+  "confidence": 1,
+  "viewport": "1440x900",
+  "theme": "light",
+  "slop": 0,
+  "design": 100,
+  "categories": {
+    "color": {
+      "slop": 0,
+      "max": 30
+    },
+    "layout": {
+      "slop": 0,
+      "max": 20
+    },
+    "type": {
+      "slop": 0,
+      "max": 15
+    },
+    "copy": {
+      "slop": 0,
+      "max": 15
+    },
+    "contrast": {
+      "slop": 0,
+      "max": 10
+    },
+    "motion": {
+      "slop": 0,
+      "max": 10
+    }
+  },
+  "signals": [],
+  "waived": [],
+  "hiddenSelectors": [],
+  "notes": [],
+  "meta": {
+    "elements": 74,
+    "texts": 48,
+    "surfaces": 9,
+    "durationMs": 1692
+  },
+  "compare": {
+    "before": {
+      "slop": 54,
+      "design": 46
+    },
+    "after": {
+      "slop": 0,
+      "design": 100
+    },
+    "slop": -54,
+    "design": 54,
+    "categories": {
+      "color": {
+        "before": 20.6,
+        "after": 0,
+        "delta": -20.6
+      },
+      "layout": {
+        "before": 8.7,
+        "after": 0,
+        "delta": -8.7
+      },
+      "type": {
+        "before": 4.5,
+        "after": 0,
+        "delta": -4.5
+      },
+      "copy": {
+        "before": 13.2,
+        "after": 0,
+        "delta": -13.2
+      },
+      "contrast": {
+        "before": 2.2,
+        "after": 0,
+        "delta": -2.2
+      },
+      "motion": {
+        "before": 4.3,
+        "after": 0,
+        "delta": -4.3
+      }
+    },
+    "removed": [
+      "A1",
+      "A2",
+      "A3",
+      "A5",
+      "A6",
+      "A7",
+      "B1",
+      "B3",
+      "B5",
+      "C3",
+      "C4",
+      "D1",
+      "D2",
+      "D3",
+      "D4",
+      "E2",
+      "E3",
+      "F1",
+      "F2"
+    ],
+    "remaining": [],
+    "appeared": [],
+    "warnings": []
+  }
+}

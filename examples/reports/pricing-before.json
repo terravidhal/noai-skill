@@ -1,0 +1,595 @@
+{
+  "rubric": "1",
+  "tool": "trueline",
+  "toolVersion": "1.0.0",
+  "input": "examples/before/pricing.html",
+  "mode": "dom",
+  "confidence": 1,
+  "viewport": "1440x900",
+  "theme": "light",
+  "slop": 64,
+  "design": 36,
+  "categories": {
+    "color": {
+      "slop": 21.2,
+      "max": 30
+    },
+    "layout": {
+      "slop": 13.3,
+      "max": 20
+    },
+    "type": {
+      "slop": 4.9,
+      "max": 15
+    },
+    "copy": {
+      "slop": 12,
+      "max": 15
+    },
+    "contrast": {
+      "slop": 8.7,
+      "max": 10
+    },
+    "motion": {
+      "slop": 4.3,
+      "max": 10
+    }
+  },
+  "signals": [
+    {
+      "id": "A1",
+      "name": "purple or blue gradient surface",
+      "category": "color",
+      "weight": 6,
+      "severity": 0.95,
+      "penalty": 5.7,
+      "evidence": [
+        {
+          "selector": "h1",
+          "detail": "linear-gradient(90deg, rgb(255, 255, 255), rgb(249, 168, 212), rgb(196, 181, 253))"
+        },
+        {
+          "selector": "button.btn",
+          "detail": "linear-gradient(135deg, rgb(168, 85, 247), rgb(236, 72, 153))"
+        },
+        {
+          "selector": "button.btn",
+          "detail": "linear-gradient(135deg, rgb(168, 85, 247), rgb(236, 72, 153))"
+        }
+      ],
+      "measured": {
+        "count": 3
+      }
+    },
+    {
+      "id": "A2",
+      "name": "gradient text",
+      "category": "color",
+      "weight": 6,
+      "severity": 0.75,
+      "penalty": 4.5,
+      "evidence": [
+        {
+          "selector": "h1",
+          "detail": "background-clip: text; linear-gradient(90deg, rgb(255, 255, 255), rgb(249, 168, 212), rgb(196, 181, 253))"
+        }
+      ],
+      "measured": {
+        "count": 1
+      }
+    },
+    {
+      "id": "A3",
+      "name": "saturated glow",
+      "category": "color",
+      "weight": 5,
+      "severity": 1,
+      "penalty": 5,
+      "evidence": [
+        {
+          "selector": "span.logo",
+          "detail": "rgba(244, 114, 182, 0.7) 0px 0px 26px 0px"
+        },
+        {
+          "selector": "a.cta",
+          "detail": "rgba(168, 85, 247, 0.55) 0px 10px 26px 0px"
+        },
+        {
+          "selector": "div.hero",
+          "detail": "rgba(30, 27, 75, 0.4) 0px 30px 80px 0px"
+        },
+        {
+          "selector": "span.on",
+          "detail": "rgba(168, 85, 247, 0.5) 0px 8px 22px 0px"
+        },
+        {
+          "selector": "div.plan",
+          "detail": "rgba(30, 27, 75, 0.34) 0px 22px 52px 0px"
+        }
+      ],
+      "measured": {
+        "count": 13
+      }
+    },
+    {
+      "id": "A4",
+      "name": "soft shadow on every surface",
+      "category": "color",
+      "weight": 4,
+      "severity": 0.143,
+      "penalty": 0.57,
+      "evidence": [
+        {
+          "selector": "div.plan",
+          "detail": "rgba(30, 27, 75, 0.34) 0px 22px 52px 0px"
+        },
+        {
+          "selector": "div.plan",
+          "detail": "rgba(30, 27, 75, 0.34) 0px 22px 52px 0px"
+        },
+        {
+          "selector": "div.plan",
+          "detail": "rgba(30, 27, 75, 0.34) 0px 22px 52px 0px"
+        },
+        {
+          "selector": "section",
+          "detail": "rgba(30, 27, 75, 0.34) 0px 22px 60px 0px"
+        },
+        {
+          "selector": "section",
+          "detail": "rgba(30, 27, 75, 0.34) 0px 22px 60px 0px"
+        }
+      ],
+      "measured": {
+        "surfaces": 14,
+        "withSoftShadow": 6,
+        "share": 0.43
+      }
+    },
+    {
+      "id": "A5",
+      "name": "saturated border",
+      "category": "color",
+      "weight": 3,
+      "severity": 0.8,
+      "penalty": 2.4,
+      "evidence": [
+        {
+          "selector": "div.hero",
+          "detail": "1px rgba(196, 181, 253, 0.6)"
+        },
+        {
+          "selector": "div.plan",
+          "detail": "1px rgba(167, 139, 250, 0.6)"
+        },
+        {
+          "selector": "div.plan",
+          "detail": "1px rgba(167, 139, 250, 0.6)"
+        },
+        {
+          "selector": "div.plan",
+          "detail": "1px rgba(167, 139, 250, 0.6)"
+        },
+        {
+          "selector": "section",
+          "detail": "1px rgba(167, 139, 250, 0.5)"
+        }
+      ],
+      "measured": {
+        "count": 7
+      }
+    },
+    {
+      "id": "A6",
+      "name": "glassmorphism",
+      "category": "color",
+      "weight": 3,
+      "severity": 1,
+      "penalty": 3,
+      "evidence": [
+        {
+          "selector": "div.hero",
+          "detail": "backdrop-filter: blur(22px)"
+        },
+        {
+          "selector": "div.plan",
+          "detail": "backdrop-filter: blur(18px)"
+        },
+        {
+          "selector": "div.plan",
+          "detail": "backdrop-filter: blur(18px)"
+        },
+        {
+          "selector": "div.plan",
+          "detail": "backdrop-filter: blur(18px)"
+        }
+      ],
+      "measured": {
+        "count": 4
+      }
+    },
+    {
+      "id": "B1",
+      "name": "identical cards repeated",
+      "category": "layout",
+      "weight": 7,
+      "severity": 0.7,
+      "penalty": 4.9,
+      "evidence": [
+        {
+          "selector": "div.grid-3",
+          "detail": "3 siblings share the same size and structure (319x306)"
+        }
+      ],
+      "measured": {
+        "groups": 1
+      }
+    },
+    {
+      "id": "B2",
+      "name": "three equal columns repeated",
+      "category": "layout",
+      "weight": 4,
+      "severity": 0.333,
+      "penalty": 1.33,
+      "evidence": [
+        {
+          "selector": "grid",
+          "detail": "2 grid(s) with three equal columns"
+        }
+      ],
+      "measured": {
+        "grids": 2
+      }
+    },
+    {
+      "id": "B3",
+      "name": "centered stacked hero",
+      "category": "layout",
+      "weight": 4,
+      "severity": 0.75,
+      "penalty": 3,
+      "evidence": [
+        {
+          "selector": "h1",
+          "detail": "text-align: center on \"Supercharge your team with AI\""
+        }
+      ],
+      "measured": {}
+    },
+    {
+      "id": "B4",
+      "name": "uniform section rhythm",
+      "category": "layout",
+      "weight": 3,
+      "severity": 0.7,
+      "penalty": 2.1,
+      "evidence": [
+        {
+          "selector": "sections",
+          "detail": "1 repeated section shape(s)"
+        }
+      ],
+      "measured": {}
+    },
+    {
+      "id": "B5",
+      "name": "everything is a pill",
+      "category": "layout",
+      "weight": 2,
+      "severity": 1,
+      "penalty": 2,
+      "evidence": [
+        {
+          "selector": "a",
+          "detail": "border-radius: 999px"
+        },
+        {
+          "selector": "a",
+          "detail": "border-radius: 999px"
+        },
+        {
+          "selector": "a",
+          "detail": "border-radius: 999px"
+        }
+      ],
+      "measured": {
+        "controls": 8,
+        "pills": 8,
+        "share": 1
+      }
+    },
+    {
+      "id": "C3",
+      "name": "uppercase tracked labels",
+      "category": "type",
+      "weight": 3,
+      "severity": 0.425,
+      "penalty": 1.27,
+      "evidence": [
+        {
+          "selector": "span.badge",
+          "detail": "\"✨ Simple pricing\" 1.68px tracking"
+        },
+        {
+          "selector": "span.ribbon",
+          "detail": "\"Most popular\" 1.2px tracking"
+        }
+      ],
+      "measured": {
+        "count": 2
+      }
+    },
+    {
+      "id": "C4",
+      "name": "body text too small",
+      "category": "type",
+      "weight": 2,
+      "severity": 1,
+      "penalty": 2,
+      "evidence": [
+        {
+          "selector": "p.quote",
+          "detail": "12px: \"“Orbit changed everything for us. It is a total ga\""
+        },
+        {
+          "selector": "p.quote",
+          "detail": "12px: \"“We ship 10x faster now. Absolutely seamless.” — J\""
+        },
+        {
+          "selector": "p.quote",
+          "detail": "12px: \"“The AI-powered insights are next level.” — Foo Ba\""
+        }
+      ],
+      "measured": {
+        "body": 5,
+        "small": 3
+      }
+    },
+    {
+      "id": "C5",
+      "name": "negative tracking on small text",
+      "category": "type",
+      "weight": 2,
+      "severity": 0.8,
+      "penalty": 1.6,
+      "evidence": [
+        {
+          "selector": "span",
+          "detail": "12px with -0.5px tracking"
+        },
+        {
+          "selector": "span",
+          "detail": "12px with -0.5px tracking"
+        },
+        {
+          "selector": "span",
+          "detail": "12px with -0.5px tracking"
+        }
+      ],
+      "measured": {
+        "count": 3
+      }
+    },
+    {
+      "id": "D1",
+      "name": "emoji in the interface",
+      "category": "copy",
+      "weight": 5,
+      "severity": 1,
+      "penalty": 5,
+      "evidence": [
+        {
+          "selector": "span.badge",
+          "detail": "\"✨ Simple pricing\""
+        },
+        {
+          "selector": "li",
+          "detail": "\"✅ 5 projects\""
+        },
+        {
+          "selector": "li",
+          "detail": "\"✅ Basic insights\""
+        },
+        {
+          "selector": "li",
+          "detail": "\"✅ Email support\""
+        }
+      ],
+      "measured": {
+        "count": 11
+      }
+    },
+    {
+      "id": "D2",
+      "name": "hype copy and greetings",
+      "category": "copy",
+      "weight": 4,
+      "severity": 1,
+      "penalty": 4,
+      "evidence": [
+        {
+          "selector": "h1",
+          "detail": "\"Supercharge your team with AI\""
+        },
+        {
+          "selector": "p.sub",
+          "detail": "\"Seamlessly unlock magic insights with plans that scale. Trusted by 10,000+ teams\""
+        },
+        {
+          "selector": "b",
+          "detail": "\"10x\""
+        },
+        {
+          "selector": "h2",
+          "detail": "\"Loved by modern teams\""
+        }
+      ],
+      "measured": {
+        "count": 8
+      }
+    },
+    {
+      "id": "D3",
+      "name": "placeholder data presented as real",
+      "category": "copy",
+      "weight": 3,
+      "severity": 1,
+      "penalty": 3,
+      "evidence": [
+        {
+          "selector": "p.sub",
+          "detail": "\"Seamlessly unlock magic insights with plans that scale. Trusted by 10,000+ teams\""
+        },
+        {
+          "selector": "b",
+          "detail": "\"99.99%\""
+        },
+        {
+          "selector": "b",
+          "detail": "\"123,456\""
+        },
+        {
+          "selector": "p.quote",
+          "detail": "\"“Orbit changed everything for us. It is a total game changer!” — John Doe, CEO, \""
+        }
+      ],
+      "measured": {
+        "count": 7
+      }
+    },
+    {
+      "id": "E1",
+      "name": "unreadable body text",
+      "category": "contrast",
+      "weight": 5,
+      "severity": 1,
+      "penalty": 5,
+      "evidence": [
+        {
+          "selector": "div.brand",
+          "detail": "1.00:1 \"Orbit\""
+        },
+        {
+          "selector": "h2",
+          "detail": "1.10:1 \"Starter\""
+        },
+        {
+          "selector": "h2",
+          "detail": "1.10:1 \"Starter\""
+        },
+        {
+          "selector": "h2",
+          "detail": "1.10:1 \"Starter\""
+        },
+        {
+          "selector": "h2",
+          "detail": "1.10:1 \"Everything you need to scale\""
+        }
+      ],
+      "measured": {
+        "checked": 7,
+        "failing": 7
+      }
+    },
+    {
+      "id": "E2",
+      "name": "unreadable meta text",
+      "category": "contrast",
+      "weight": 2,
+      "severity": 1,
+      "penalty": 2,
+      "evidence": [
+        {
+          "selector": "a",
+          "detail": "1.19:1 \"Features\""
+        },
+        {
+          "selector": "a",
+          "detail": "1.19:1 \"Pricing\""
+        },
+        {
+          "selector": "a",
+          "detail": "1.19:1 \"Docs\""
+        },
+        {
+          "selector": "span.badge",
+          "detail": "1.10:1 \"✨ Simple pricing\""
+        }
+      ],
+      "measured": {
+        "checked": 32,
+        "failing": 31
+      }
+    },
+    {
+      "id": "E3",
+      "name": "keyboard focus and small targets",
+      "category": "contrast",
+      "weight": 3,
+      "severity": 0.55,
+      "penalty": 1.65,
+      "evidence": [
+        {
+          "selector": "css",
+          "detail": "no :focus-visible rule found"
+        }
+      ],
+      "measured": {
+        "focusVisible": false,
+        "smallTargets": 0
+      }
+    },
+    {
+      "id": "F1",
+      "name": "decorative infinite animation",
+      "category": "motion",
+      "weight": 4,
+      "severity": 0.333,
+      "penalty": 1.33,
+      "evidence": [
+        {
+          "selector": "span.dot",
+          "detail": "pulse infinite"
+        }
+      ],
+      "measured": {
+        "count": 1
+      }
+    },
+    {
+      "id": "F2",
+      "name": "transition-all and hover scale",
+      "category": "motion",
+      "weight": 3,
+      "severity": 1,
+      "penalty": 3,
+      "evidence": [
+        {
+          "selector": "a",
+          "detail": "all"
+        },
+        {
+          "selector": "a",
+          "detail": "all"
+        },
+        {
+          "selector": "a",
+          "detail": "all"
+        }
+      ],
+      "measured": {
+        "count": 11
+      }
+    }
+  ],
+  "waived": [],
+  "hiddenSelectors": [],
+  "notes": [],
+  "meta": {
+    "elements": 71,
+    "texts": 50,
+    "surfaces": 14,
+    "durationMs": 2007
+  }
+}

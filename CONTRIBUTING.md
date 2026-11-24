@@ -47,8 +47,8 @@ skill.
 npm run lint
 ```
 
-The check runs the scanner on both example pairs, the demo asset, and the
-deterministic evals. It needs no browser and no key.
+The check runs the scanner on all four example pairs, the demo asset and the
+captures, and the deterministic evals. It needs no browser and no key.
 
 ## Style
 

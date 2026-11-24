@@ -1,6 +1,7 @@
 /ref/
 /node_modules/
 /.trueline/
+/.vague/
 /trueline/
 .DS_Store
 *.log

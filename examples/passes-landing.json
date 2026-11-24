@@ -1,0 +1,87 @@
+{
+  "skill": "trueline",
+  "rubric": "1",
+  "screen": "Orbit landing page",
+  "passes": [
+    {
+      "pass": "1. Spacing and frame",
+      "category": "layout",
+      "changes": [
+        { "file": "examples/after/landing.html", "selector": "body", "before": "full-bleed gradient with 20–64px blocks", "after": "1160px page with 28px gutters", "signal": "B4" },
+        { "file": "examples/after/landing.html", "selector": ".hero", "before": "centered 860px box with 64px padding", "after": "two-column hero, 72px top, 64px bottom", "signal": "B3" }
+      ]
+    },
+    {
+      "pass": "2. Color and depth",
+      "category": "color",
+      "changes": [
+        { "file": "examples/after/landing.html", "selector": "body", "before": "radial pink plus linear-gradient(#6d28d9, #2563eb)", "after": "warm paper #f7f4ee with a dark counterpart", "signal": "A1" },
+        { "file": "examples/after/landing.html", "selector": ".hero, .card", "before": "rgba(255,255,255,.1) + backdrop-filter: blur(20px)", "after": "no glass; solid preview surface", "signal": "A6" },
+        { "file": "examples/after/landing.html", "selector": ".card", "before": "0 20px 48px rgba(30,27,75,.32)", "after": "no shadow; hairline only", "signal": "A4" },
+        { "file": "examples/after/landing.html", "selector": ".card, section", "before": "1px rgba(167,139,250,.6)", "after": "rgba(31,27,22,.12) hairline", "signal": "A5" }
+      ]
+    },
+    {
+      "pass": "3. Icons",
+      "category": "copy",
+      "changes": [
+        { "file": "examples/after/landing.html", "selector": ".card .emoji", "before": "🚀 repeated above every feature", "after": "one 20px stroke icon per feature", "signal": "D1" }
+      ]
+    },
+    {
+      "pass": "4. Copy",
+      "category": "copy",
+      "changes": [
+        { "file": "examples/after/landing.html", "selector": "h1", "before": "Supercharge your workflow with AI", "after": "Run every client project from one quiet page.", "signal": "D2" },
+        { "file": "examples/after/landing.html", "selector": ".sub", "before": "Seamlessly unlock magic insights... game changer!", "after": "Orbit keeps scopes, hours, invoices and notes in one place.", "signal": "D2" },
+        { "file": "examples/after/landing.html", "selector": ".stats", "before": "99.99% / 123,456 / 10x and John Doe quotes", "after": "a project preview with real line items", "signal": "D3" },
+        { "file": "examples/after/landing.html", "selector": ".btn", "before": "Get started now", "after": "Start a project", "signal": "D4" }
+      ]
+    },
+    {
+      "pass": "5. Type",
+      "category": "type",
+      "changes": [
+        { "file": "examples/after/landing.html", "selector": "h1", "before": "32px, weight 800, gradient text", "after": "56px, weight 500, solid ink", "signal": "C1" },
+        { "file": "examples/after/landing.html", "selector": ".badge", "before": "uppercase, 0.14em tracking", "after": "sentence-case kicker, no tracking", "signal": "C3" },
+        { "file": "examples/after/landing.html", "selector": ".sub", "before": "12–14px body copy", "after": "15–18px body", "signal": "C4" }
+      ]
+    },
+    {
+      "pass": "6. Layout",
+      "category": "layout",
+      "changes": [
+        { "file": "examples/after/landing.html", "selector": ".hero", "before": "centered stack", "after": "argument on the left, project preview on the right", "signal": "B3" },
+        { "file": "examples/after/landing.html", "selector": ".grid-3", "before": "three identical feature cards", "after": "a two-column feature list", "signal": "B1" },
+        { "file": "examples/after/landing.html", "selector": ".grid-3", "before": "grid-template-columns: repeat(3, 1fr)", "after": "grid-template-columns: 1.1fr 0.9fr", "signal": "B2" },
+        { "file": "examples/after/landing.html", "selector": "section", "before": "three sections with identical 24px padding", "after": "header, hero, clients, features, footer", "signal": "B4" }
+      ]
+    },
+    {
+      "pass": "7. Components",
+      "category": "layout",
+      "changes": [
+        { "file": "examples/after/landing.html", "selector": ".btn", "before": "border-radius: 999px; gradient fill; glow", "after": "8px radius; solid accent or hairline", "signal": "B5" },
+        { "file": "examples/after/landing.html", "selector": ".hero, .card", "before": "28–32px radius", "after": "14px radius on the preview only", "signal": "A5" },
+        { "file": "examples/after/landing.html", "selector": "a, button", "before": "no focus rule", "after": ":focus-visible outline 2px, offset 2px", "signal": "E3" }
+      ]
+    },
+    {
+      "pass": "8. Visual",
+      "category": "layout",
+      "changes": [
+        { "file": "examples/after/landing.html", "selector": ".preview", "before": "no product visual", "after": "a real project preview with hours, total and budget", "signal": "B4" },
+        { "file": "examples/after/landing.html", "selector": ".clients", "before": "fake quote wall", "after": "sample studios named as samples", "signal": "D3" }
+      ]
+    },
+    {
+      "pass": "9. Motion",
+      "category": "motion",
+      "changes": [
+        { "file": "examples/after/landing.html", "selector": ".dot", "before": "animation: pulse 1.4s infinite", "after": "removed", "signal": "F1" },
+        { "file": "examples/after/landing.html", "selector": ".btn", "before": "transition: all 300ms; hover:scale(1.04)", "after": "background-color / border-color 140ms", "signal": "F2" },
+        { "file": "examples/after/landing.html", "selector": ".grow", "before": "transition: width 400ms", "after": "removed", "signal": "F3" }
+      ]
+    }
+  ]
+}

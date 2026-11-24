@@ -1,0 +1,396 @@
+{
+  "rubric": "1",
+  "tool": "trueline",
+  "toolVersion": "1.0.0",
+  "title": "trueline — Orbit new project form before/after",
+  "input": "examples/after/form.html",
+  "mode": "dom",
+  "confidence": 1,
+  "before": {
+    "slop": 54,
+    "design": 46,
+    "categories": {
+      "color": {
+        "slop": 20.6,
+        "max": 30
+      },
+      "layout": {
+        "slop": 8.7,
+        "max": 20
+      },
+      "type": {
+        "slop": 4.5,
+        "max": 15
+      },
+      "copy": {
+        "slop": 13.2,
+        "max": 15
+      },
+      "contrast": {
+        "slop": 2.2,
+        "max": 10
+      },
+      "motion": {
+        "slop": 4.3,
+        "max": 10
+      }
+    }
+  },
+  "after": {
+    "slop": 0,
+    "design": 100,
+    "categories": {
+      "color": {
+        "slop": 0,
+        "max": 30
+      },
+      "layout": {
+        "slop": 0,
+        "max": 20
+      },
+      "type": {
+        "slop": 0,
+        "max": 15
+      },
+      "copy": {
+        "slop": 0,
+        "max": 15
+      },
+      "contrast": {
+        "slop": 0,
+        "max": 10
+      },
+      "motion": {
+        "slop": 0,
+        "max": 10
+      }
+    }
+  },
+  "delta": {
+    "slop": -54,
+    "design": 54,
+    "categories": {
+      "color": {
+        "before": 20.6,
+        "after": 0,
+        "delta": -20.6
+      },
+      "layout": {
+        "before": 8.7,
+        "after": 0,
+        "delta": -8.7
+      },
+      "type": {
+        "before": 4.5,
+        "after": 0,
+        "delta": -4.5
+      },
+      "copy": {
+        "before": 13.2,
+        "after": 0,
+        "delta": -13.2
+      },
+      "contrast": {
+        "before": 2.2,
+        "after": 0,
+        "delta": -2.2
+      },
+      "motion": {
+        "before": 4.3,
+        "after": 0,
+        "delta": -4.3
+      }
+    }
+  },
+  "passes": [
+    {
+      "pass": "1. Spacing and frame",
+      "category": "layout",
+      "changes": [
+        {
+          "file": "examples/after/form.html",
+          "selector": "body",
+          "before": "centered 520px card with 40px padding",
+          "after": "1040px page, two columns, 56px top",
+          "signal": "B3"
+        },
+        {
+          "file": "examples/after/form.html",
+          "selector": ".panel",
+          "before": "34px padding inside the glass card",
+          "after": "24px padding on a solid panel",
+          "signal": "B4"
+        },
+        {
+          "file": "examples/after/form.html",
+          "selector": "form",
+          "before": "14px gaps with no field groups",
+          "after": "two fieldsets, 16px gaps on a 4px grid",
+          "signal": "B4"
+        }
+      ]
+    },
+    {
+      "pass": "2. Color and depth",
+      "category": "color",
+      "changes": [
+        {
+          "file": "examples/after/form.html",
+          "selector": "body",
+          "before": "linear-gradient(135deg, #6d28d9, #2563eb)",
+          "after": "solid #f6f7f9 with a dark counterpart",
+          "signal": "A1"
+        },
+        {
+          "file": "examples/after/form.html",
+          "selector": ".card",
+          "before": "rgba(255,255,255,.12) + backdrop-filter: blur(22px)",
+          "after": "solid panel with a hairline",
+          "signal": "A6"
+        },
+        {
+          "file": "examples/after/form.html",
+          "selector": ".proof-card",
+          "before": "0 18px 40px rgba(30,27,75,.32) on three cards",
+          "after": "removed",
+          "signal": "A4"
+        },
+        {
+          "file": "examples/after/form.html",
+          "selector": ".proof-card",
+          "before": "1px rgba(167,139,250,.6)",
+          "after": "no saturated border",
+          "signal": "A5"
+        },
+        {
+          "file": "examples/after/form.html",
+          "selector": ".tag",
+          "before": "five saturated badge colours",
+          "after": "one accent, no badge wall",
+          "signal": "A7"
+        }
+      ]
+    },
+    {
+      "pass": "3. Icons",
+      "category": "copy",
+      "changes": [
+        {
+          "file": "examples/after/form.html",
+          "selector": "label",
+          "before": "✨ 👋 📧 🏢 📈 💬 on every label",
+          "after": "plain labels, no icon",
+          "signal": "D1"
+        },
+        {
+          "file": "examples/after/form.html",
+          "selector": ".proof",
+          "before": "⭐ 🚀 ✨ as proof icons",
+          "after": "numbered steps, no icons",
+          "signal": "D1"
+        }
+      ]
+    },
+    {
+      "pass": "4. Copy",
+      "category": "copy",
+      "changes": [
+        {
+          "file": "examples/after/form.html",
+          "selector": "h1",
+          "before": "Let us supercharge your onboarding! 🚀",
+          "after": "Tell us what the project needs to cover.",
+          "signal": "D2"
+        },
+        {
+          "file": "examples/after/form.html",
+          "selector": ".sub",
+          "before": "Seamlessly set up your first project... Trusted by 10,000+ teams!",
+          "after": "Two fields decide the rest; both can change later.",
+          "signal": "D2"
+        },
+        {
+          "file": "examples/after/form.html",
+          "selector": "input",
+          "before": "John Doe / Jane Doe / you@example.com / Acme Corp",
+          "after": "Mara / Ellis / mara@northwind.studio / Northwind",
+          "signal": "D3"
+        },
+        {
+          "file": "examples/after/form.html",
+          "selector": ".btn",
+          "before": "Continue to the next step",
+          "after": "Create project",
+          "signal": "D4"
+        }
+      ]
+    },
+    {
+      "pass": "5. Type",
+      "category": "type",
+      "changes": [
+        {
+          "file": "examples/after/form.html",
+          "selector": "h1",
+          "before": "28px, weight 800, gradient text",
+          "after": "44px, weight 500, solid ink",
+          "signal": "C1"
+        },
+        {
+          "file": "examples/after/form.html",
+          "selector": "label",
+          "before": "uppercase, 0.12em tracking",
+          "after": "sentence case, 13px",
+          "signal": "C3"
+        },
+        {
+          "file": "examples/after/form.html",
+          "selector": ".sub",
+          "before": "12px body copy",
+          "after": "16px lede and 15px inputs",
+          "signal": "C4"
+        },
+        {
+          "file": "examples/after/form.html",
+          "selector": ".help",
+          "before": "12px at 1.79:1 on transparency",
+          "after": "12px meta at 4.6:1 on solid surfaces",
+          "signal": "E2"
+        }
+      ]
+    },
+    {
+      "pass": "6. Layout",
+      "category": "layout",
+      "changes": [
+        {
+          "file": "examples/after/form.html",
+          "selector": "main",
+          "before": "one centered stack",
+          "after": "intro with steps on the left, form on the right",
+          "signal": "B3"
+        },
+        {
+          "file": "examples/after/form.html",
+          "selector": ".proof",
+          "before": "three identical proof cards",
+          "after": "removed",
+          "signal": "B1"
+        },
+        {
+          "file": "examples/after/form.html",
+          "selector": ".proof",
+          "before": "grid-template-columns: repeat(3, 1fr)",
+          "after": "no three-column grid",
+          "signal": "B2"
+        },
+        {
+          "file": "examples/after/form.html",
+          "selector": "form",
+          "before": "one flat list of ten fields",
+          "after": "two fieldsets: client, then scope",
+          "signal": "B4"
+        }
+      ]
+    },
+    {
+      "pass": "7. Components",
+      "category": "layout",
+      "changes": [
+        {
+          "file": "examples/after/form.html",
+          "selector": "input, select, textarea",
+          "before": "border-radius: 999px; translucent fill",
+          "after": "8px radius; solid field; visible border",
+          "signal": "B5"
+        },
+        {
+          "file": "examples/after/form.html",
+          "selector": ".panel",
+          "before": "30px radius with a saturated border",
+          "after": "12px radius with a hairline",
+          "signal": "A5"
+        },
+        {
+          "file": "examples/after/form.html",
+          "selector": "a, button, input, select, textarea",
+          "before": "no focus rule",
+          "after": ":focus-visible outline 2px, offset 2px",
+          "signal": "E3"
+        },
+        {
+          "file": "examples/after/form.html",
+          "selector": ".check input",
+          "before": "18px, no minimum target",
+          "after": "24px checkbox; inline links reach 24px",
+          "signal": "E3"
+        }
+      ]
+    },
+    {
+      "pass": "8. Visual",
+      "category": "layout",
+      "changes": [
+        {
+          "file": "examples/after/form.html",
+          "selector": ".proof, .tags, .quote",
+          "before": "fake proof wall with 10x stats and testimonials",
+          "after": "three real steps and a note about what is shared",
+          "signal": "B1"
+        },
+        {
+          "file": "examples/after/form.html",
+          "selector": ".panel",
+          "before": "no indication of what happens next",
+          "after": "field hints, privacy note and draft action",
+          "signal": "D4"
+        }
+      ]
+    },
+    {
+      "pass": "9. Motion",
+      "category": "motion",
+      "changes": [
+        {
+          "file": "examples/after/form.html",
+          "selector": ".dot",
+          "before": "animation: pulse 1.5s infinite",
+          "after": "removed",
+          "signal": "F1"
+        },
+        {
+          "file": "examples/after/form.html",
+          "selector": "input, .btn",
+          "before": "transition: all 260ms; hover:scale(1.03)",
+          "after": "border-color / background-color 140ms",
+          "signal": "F2"
+        }
+      ]
+    }
+  ],
+  "removed": [
+    "A1",
+    "A2",
+    "A3",
+    "A5",
+    "A6",
+    "A7",
+    "B1",
+    "B3",
+    "B5",
+    "C3",
+    "C4",
+    "D1",
+    "D2",
+    "D3",
+    "D4",
+    "E2",
+    "E3",
+    "F1",
+    "F2"
+  ],
+  "remaining": [],
+  "appeared": [],
+  "waivers": [],
+  "warnings": []
+}

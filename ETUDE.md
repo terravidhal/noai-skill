@@ -4,7 +4,7 @@
 > en interface qui a l'air dessinée, **avec un score avant/après chiffré** et
 > **une correction réellement appliquée au code**, pas seulement des conseils.
 >
-> Date : 2026-11-24 · Statut : étude terminée, implémentation à venir
+> Date : 2026-11-24 · Statut : étude terminée, implémentation livrée
 > Langue du produit : anglais (`SKILL.md`, `README`) · Étude : français
 > Licence prévue : MIT
 
@@ -161,11 +161,12 @@ taille et de sa place ; les visuels et le motion en dernier parce qu'ils doivent
 
 ### 3.6 Licence et posture
 
-Le brief décrit le dépôt comme sans licence ; la fiche du dépôt affiche aujourd'hui
-**CC BY 4.0**. Dans les deux cas la règle est la même : on **ne recopie aucun fichier, aucun
-texte, aucun dessin**. On reprend des **idées et des méthodes** (audit, ordre des passes,
-direction, capture) et on écrit nos propres textes, nos propres exemples, notre propre
-scanner. Aucune image de `refs/` n'est reprise.
+Le brief décrit le dépôt comme sans licence ; le clone de travail contient une `LICENSE`
+**CC BY 4.0**. Quel que soit le statut retenu, la règle appliquée est la plus stricte :
+on **ne recopie aucun fichier, aucun texte, aucun dessin**. On reprend uniquement des
+**idées et des méthodes** (audit, ordre des passes, direction, capture) et on écrit nos
+propres textes, nos propres exemples, notre propre scanner. Aucune image de `refs/` n'est
+reprise. Le clone de travail ne sert qu'à lire, et il reste hors du dépôt publié.
 
 ---
 
@@ -223,7 +224,7 @@ fonctionnalités. Les ignorer serait une faute. Voici les plus utiles à situer.
 
 | Projet | Étoiles | Licence | Cœur | Score chiffré | Correction appliquée + ledger |
 |---|---|---|---|---|---|
-| `heydamir/unslop` | ~21 k | CC BY 4.0 | direction + 9 passes | non | non (conseils) |
+| `heydamir/unslop` | ~21 k | CC BY 4.0 (brief : aucune) | direction + 9 passes | non | non (conseils) |
 | `Leonxlnx/taste-skill` | ~120 k | MIT | build + gate navigateur | non (portes) | partiel (crée la page) |
 | `Nutlope/hallmark` | ~60 k | MIT | thèmes + lint + portes | non | partiel |
 | `callmehai/sloplint` | petit | MIT | 54 tells + diff | oui | diff, correction séparée |
@@ -367,16 +368,17 @@ trueline/
 │   └── assets/
 │       └── example-before.html  # démo minimale (fictive, sans marque)
 ├── examples/
-│   ├── before/                  # deux écrans volontairement « slop »
+│   ├── before/                  # quatre écrans volontairement « slop »
 │   └── after/                   # les mêmes, corrigés
 ├── evals/evals.json
-├── assets/readme/               # captures avant/après 1440
+├── assets/readme/               # captures 1440/390, clair/sombre
+├── assets/demo.gif              # démonstration avant → après
 └── scripts/check-skill.mjs      # lint du dépôt (frontmatter, liens, JSON, assets)
 ```
 
 `trueline` ne dépend que de Node 22+ et de Playwright/Chromium (déjà nécessaires aux
-captures). Le mode image réutilise Chromium + canvas pour lire les pixels : **pas de `sharp`,
-pas de `canvas` natif, pas de nouvelle dépendance lourde**.
+captures). Le mode image décode le PNG avec `node:zlib` et lit les pixels directement :
+**pas de `sharp`, pas de `canvas` natif, pas de nouvelle dépendance lourde**.
 
 ### 8.2 `SKILL.md` — frontmatter
 
@@ -706,16 +708,17 @@ déterministes uniquement.
    `capture.md`.
 5. **`feat: write trueline skill instructions`** — `SKILL.md` court, `passes.md`,
    `direction.md`, `stacks.md`, checklist et contrat de sortie.
-6. **`docs: add before/after examples and README`** — `examples/` (fictif), captures 1440,
-   README install-first avec les deux scores.
+6. **`docs: add before/after examples and README`** — quatre écrans fictifs (dashboard,
+   landing, pricing, formulaire), captures 1440/390 en clair et sombre, GIF de démo,
+   README install-first avec les scores avant/après.
 7. **`test: add evals and final repository checks`** — evals complets, lint, revue finale.
 
 ### Critères d'acceptation
 
 - `npx skills add terravidhal/trueline --list` trouve le skill `trueline`.
 - `scan.mjs` note un HTML **et** une capture, de façon déterministe.
-- Les exemples passent de `slop ≥ 60` à `slop ≤ 15` après correction.
-- `RAPPORT.md` contient deux scores, un tableau par passe et des preuves.
+- Les quatre exemples passent de `slop ≥ 45` à `slop ≤ 10` après correction.
+- `RAPPORT.md` contient les scores avant/après, un tableau par passe et des preuves.
 - Aucun build/typecheck cassé par la correction sur les exemples.
 - Le dépôt est MIT, sans secret ni donnée personnelle.
 

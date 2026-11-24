@@ -1,14 +1,18 @@
 #!/usr/bin/env node
 /**
- * Regenerate the README screenshots from the example pages with Chromium.
+ * Regenerate the README screenshots and the short demo GIF with Chromium.
  *
  *   node examples/scripts/make-assets.mjs
  *   node examples/scripts/make-assets.mjs --playwright ./node_modules/playwright --chrome /path/to/chrome
  *
- * Playwright is only needed for this maintainer script; the scanner and the
- * repository lint run without it.
+ * For every example it writes four captures:
+ *   1440 light, 1440 dark, 390 light, 390 dark.
+ * It also builds one before/after sheet per screen, a generic hero sheet, and
+ * assets/demo.gif when ffmpeg is available. Playwright and ffmpeg are only
+ * needed for this maintainer script; the scanner and the repository lint run
+ * without them.
  */
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
 import { createRequire } from "node:module";
 import { existsSync, mkdirSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
@@ -60,35 +64,56 @@ const browser = await playwright.chromium.launch({
 });
 
 const pages = [
-  { name: "dashboard-before", file: "examples/before/dashboard.html" },
-  { name: "dashboard-after", file: "examples/after/dashboard.html" },
-  { name: "landing-before", file: "examples/before/landing.html" },
-  { name: "landing-after", file: "examples/after/landing.html" },
+  { name: "dashboard", file: "examples/after/dashboard.html", before: "examples/before/dashboard.html" },
+  { name: "landing", file: "examples/after/landing.html", before: "examples/before/landing.html" },
+  { name: "pricing", file: "examples/after/pricing.html", before: "examples/before/pricing.html" },
+  { name: "form", file: "examples/after/form.html", before: "examples/before/form.html" },
 ];
 
-function scoreOf(file) {
+const variants = [
+  { suffix: "", width: 1440, height: 900, scheme: "light" },
+  { suffix: "-dark", width: 1440, height: 900, scheme: "dark" },
+  { suffix: "-390", width: 390, height: 844, scheme: "light" },
+  { suffix: "-390-dark", width: 390, height: 844, scheme: "dark" },
+];
+
+const shots = [
+  ...pages.map((page) => ({ name: `${page.name}-before`, file: page.before })),
+  ...pages.map((page) => ({ name: `${page.name}-after`, file: page.file })),
+];
+
+function scanArgs(file) {
   const args = [join(root, "skills/trueline/scripts/scan.mjs"), file, "--json", "-", "--quiet"];
-  const playwright = value("--playwright");
-  const chrome = value("--chrome");
-  if (playwright) args.push("--playwright", playwright);
-  if (chrome) args.push("--chrome", chrome);
-  const output = execFileSync(process.execPath, args, { cwd: root, encoding: "utf8" });
+  if (value("--playwright")) args.push("--playwright", value("--playwright"));
+  if (value("--chrome")) args.push("--chrome", value("--chrome"));
+  return args;
+}
+
+function scoreOf(file) {
+  const output = execFileSync(process.execPath, scanArgs(file), { cwd: root, encoding: "utf8" });
   return JSON.parse(output).slop;
 }
 
 try {
   mkdirSync(outDir, { recursive: true });
-  for (const page of pages) {
-    const tab = await browser.newPage({ viewport: { width: 1440, height: 900 }, colorScheme: "light", deviceScaleFactor: 1 });
-    await tab.goto(pathToFileURL(join(root, page.file)).href, { waitUntil: "networkidle" });
-    await tab.evaluate(() => document.fonts?.ready);
-    await tab.waitForTimeout(300);
-    await tab.screenshot({ path: join(outDir, `${page.name}.png`) });
-    await tab.close();
-    console.log(`saved assets/readme/${page.name}.png`);
+
+  for (const shot of shots) {
+    for (const variant of variants) {
+      const tab = await browser.newPage({
+        viewport: { width: variant.width, height: variant.height },
+        colorScheme: variant.scheme,
+        deviceScaleFactor: 1,
+      });
+      await tab.goto(pathToFileURL(join(root, shot.file)).href, { waitUntil: "networkidle" });
+      await tab.evaluate(() => document.fonts?.ready);
+      await tab.waitForTimeout(250);
+      await tab.screenshot({ path: join(outDir, `${shot.name}${variant.suffix}.png`) });
+      await tab.close();
+      console.log(`saved assets/readme/${shot.name}${variant.suffix}.png`);
+    }
   }
 
-  const scores = Object.fromEntries(pages.map((page) => [page.name, scoreOf(page.file)]));
+  const scores = Object.fromEntries(shots.map((shot) => [shot.name, scoreOf(shot.file)]));
 
   const comparison = async (name, before, after, left, right) => {
     const html = `<!doctype html>
@@ -123,8 +148,37 @@ try {
     console.log(`saved assets/readme/${name}.png`);
   };
 
-  await comparison("before-after-dashboard", "dashboard-before", "dashboard-after", "Before", "After");
-  await comparison("before-after-landing", "landing-before", "landing-after", "Before", "After");
+  for (const page of pages) {
+    await comparison(`before-after-${page.name}`, `${page.name}-before`, `${page.name}-after`, "Before", "After");
+  }
+  await comparison("before-after", "dashboard-before", "dashboard-after", "Agent output, no skill", "Same page, with trueline");
+
+  const ffmpeg = spawnSync("ffmpeg", ["-version"], { encoding: "utf8" });
+  if (ffmpeg.status !== 0) {
+    console.warn("ffmpeg not found; skipped assets/demo.gif");
+  } else {
+    const filters = [];
+    const inputs = [];
+    ["dashboard-before", "dashboard-after", "pricing-before", "pricing-after"].forEach((name, index) => {
+      inputs.push("-loop", "1", "-t", "2.4", "-i", join(outDir, `${name}.png`));
+      filters.push(`[${index}:v]scale=900:563:force_original_aspect_ratio=decrease,pad=900:563:(ow-iw)/2:(oh-ih)/2:color=0xf6f7f9,setsar=1,format=rgb24,setpts=PTS-STARTPTS[v${index}]`);
+    });
+    filters.push("[v0][v1]xfade=transition=wipeleft:duration=0.7:offset=1.3[c1]");
+    filters.push("[v2][v3]xfade=transition=wipeleft:duration=0.7:offset=1.3[c2]");
+    filters.push("[c1][c2]concat=n=2:v=1:a=0,fps=10,split[seq][seq2]");
+    filters.push("[seq]palettegen=max_colors=128[p]");
+    filters.push("[seq2][p]paletteuse=dither=bayer:bayer_scale=3");
+    const result = spawnSync("ffmpeg", [
+      "-y", ...inputs,
+      "-filter_complex", filters.join(";"),
+      "-loop", "0", join(root, "assets/demo.gif"),
+    ], { cwd: root, encoding: "utf8" });
+    if (result.status !== 0) {
+      console.warn(`ffmpeg failed; skipped assets/demo.gif\n${result.stderr?.slice(-800) || ""}`);
+    } else {
+      console.log("saved assets/demo.gif");
+    }
+  }
 } finally {
   await browser.close();
 }

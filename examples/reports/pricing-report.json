@@ -1,0 +1,392 @@
+{
+  "rubric": "1",
+  "tool": "trueline",
+  "toolVersion": "1.0.0",
+  "title": "trueline — Orbit pricing before/after",
+  "input": "examples/after/pricing.html",
+  "mode": "dom",
+  "confidence": 1,
+  "before": {
+    "slop": 64,
+    "design": 36,
+    "categories": {
+      "color": {
+        "slop": 21.2,
+        "max": 30
+      },
+      "layout": {
+        "slop": 13.3,
+        "max": 20
+      },
+      "type": {
+        "slop": 4.9,
+        "max": 15
+      },
+      "copy": {
+        "slop": 12,
+        "max": 15
+      },
+      "contrast": {
+        "slop": 8.7,
+        "max": 10
+      },
+      "motion": {
+        "slop": 4.3,
+        "max": 10
+      }
+    }
+  },
+  "after": {
+    "slop": 0,
+    "design": 100,
+    "categories": {
+      "color": {
+        "slop": 0,
+        "max": 30
+      },
+      "layout": {
+        "slop": 0,
+        "max": 20
+      },
+      "type": {
+        "slop": 0,
+        "max": 15
+      },
+      "copy": {
+        "slop": 0,
+        "max": 15
+      },
+      "contrast": {
+        "slop": 0,
+        "max": 10
+      },
+      "motion": {
+        "slop": 0,
+        "max": 10
+      }
+    }
+  },
+  "delta": {
+    "slop": -64,
+    "design": 64,
+    "categories": {
+      "color": {
+        "before": 21.2,
+        "after": 0,
+        "delta": -21.2
+      },
+      "layout": {
+        "before": 13.3,
+        "after": 0,
+        "delta": -13.3
+      },
+      "type": {
+        "before": 4.9,
+        "after": 0,
+        "delta": -4.9
+      },
+      "copy": {
+        "before": 12,
+        "after": 0,
+        "delta": -12
+      },
+      "contrast": {
+        "before": 8.7,
+        "after": 0,
+        "delta": -8.7
+      },
+      "motion": {
+        "before": 4.3,
+        "after": 0,
+        "delta": -4.3
+      }
+    }
+  },
+  "passes": [
+    {
+      "pass": "1. Spacing and frame",
+      "category": "layout",
+      "changes": [
+        {
+          "file": "examples/after/pricing.html",
+          "selector": ".nav",
+          "before": "padding: 20px 40px",
+          "after": "header inside a 1160px page with 28px gutters",
+          "signal": "B4"
+        },
+        {
+          "file": "examples/after/pricing.html",
+          "selector": ".hero",
+          "before": "max-width: 880px; padding: 56px 32px",
+          "after": "two-column grid, 56px top, 40px bottom",
+          "signal": "B3"
+        },
+        {
+          "file": "examples/after/pricing.html",
+          "selector": "section",
+          "before": "26px padding, three identical blocks",
+          "after": "one table plus a two-column notes row",
+          "signal": "B4"
+        }
+      ]
+    },
+    {
+      "pass": "2. Color and depth",
+      "category": "color",
+      "changes": [
+        {
+          "file": "examples/after/pricing.html",
+          "selector": "body",
+          "before": "linear-gradient(135deg, #6d28d9, #2563eb) plus a pink radial",
+          "after": "solid #f6f7f9 with a dark counterpart",
+          "signal": "A1"
+        },
+        {
+          "file": "examples/after/pricing.html",
+          "selector": ".hero",
+          "before": "rgba(255,255,255,.1) + backdrop-filter: blur(22px)",
+          "after": "no glass; type on the page background",
+          "signal": "A6"
+        },
+        {
+          "file": "examples/after/pricing.html",
+          "selector": ".plan",
+          "before": "0 22px 52px rgba(30,27,75,.34)",
+          "after": "no shadow; a 1px hairline inside the table",
+          "signal": "A4"
+        },
+        {
+          "file": "examples/after/pricing.html",
+          "selector": ".plan, .hero",
+          "before": "1px rgba(167,139,250,.6) border",
+          "after": "rgba(18,22,31,.12) hairline",
+          "signal": "A5"
+        },
+        {
+          "file": "examples/after/pricing.html",
+          "selector": ".ribbon, .toggle .on",
+          "before": "five saturated accents",
+          "after": "one teal accent used for the primary action",
+          "signal": "A7"
+        }
+      ]
+    },
+    {
+      "pass": "3. Icons",
+      "category": "copy",
+      "changes": [
+        {
+          "file": "examples/after/pricing.html",
+          "selector": ".plan ul li",
+          "before": "✅ emoji on every row",
+          "after": "one 18px check stroke in the table",
+          "signal": "D1"
+        }
+      ]
+    },
+    {
+      "pass": "4. Copy",
+      "category": "copy",
+      "changes": [
+        {
+          "file": "examples/after/pricing.html",
+          "selector": "h1",
+          "before": "Supercharge your team with AI",
+          "after": "Pay for active projects, not seats.",
+          "signal": "D2"
+        },
+        {
+          "file": "examples/after/pricing.html",
+          "selector": ".lede",
+          "before": "Seamlessly unlock magic insights... Trusted by 10,000+ teams!",
+          "after": "Every plan includes scopes, hours, invoices and client notes.",
+          "signal": "D2"
+        },
+        {
+          "file": "examples/after/pricing.html",
+          "selector": ".quote",
+          "before": "John Doe and 99.99% / 123,456 proof points",
+          "after": "plan limits, prices and two real questions",
+          "signal": "D3"
+        },
+        {
+          "file": "examples/after/pricing.html",
+          "selector": ".btn",
+          "before": "Get started now",
+          "after": "Choose a plan / Start with Studio",
+          "signal": "D4"
+        }
+      ]
+    },
+    {
+      "pass": "5. Type",
+      "category": "type",
+      "changes": [
+        {
+          "file": "examples/after/pricing.html",
+          "selector": "h1",
+          "before": "34px, weight 800, gradient text",
+          "after": "46px, weight 500, solid ink",
+          "signal": "C1"
+        },
+        {
+          "file": "examples/after/pricing.html",
+          "selector": ".badge, .ribbon",
+          "before": "uppercase, 0.14em tracking",
+          "after": "sentence case, no tracking",
+          "signal": "C3"
+        },
+        {
+          "file": "examples/after/pricing.html",
+          "selector": ".quote",
+          "before": "12px body copy",
+          "after": "15px body, 12px short meta only",
+          "signal": "C4"
+        },
+        {
+          "file": "examples/after/pricing.html",
+          "selector": ".price span",
+          "before": "-0.5px tracking at 12px",
+          "after": "zero tracking below 16px",
+          "signal": "C5"
+        }
+      ]
+    },
+    {
+      "pass": "6. Layout",
+      "category": "layout",
+      "changes": [
+        {
+          "file": "examples/after/pricing.html",
+          "selector": ".hero",
+          "before": "centered stack with a pill toggle",
+          "after": "left-aligned argument and a small start panel",
+          "signal": "B3"
+        },
+        {
+          "file": "examples/after/pricing.html",
+          "selector": ".grid-3",
+          "before": "three identical plan cards",
+          "after": "one comparison table with three different plans",
+          "signal": "B1"
+        },
+        {
+          "file": "examples/after/pricing.html",
+          "selector": ".stats",
+          "before": "3x3 equal columns of fake proof",
+          "after": "one table, no repeated stat grid",
+          "signal": "B2"
+        },
+        {
+          "file": "examples/after/pricing.html",
+          "selector": "section",
+          "before": "three sections with the same 26px padding",
+          "after": "table and notes with different rhythms",
+          "signal": "B4"
+        }
+      ]
+    },
+    {
+      "pass": "7. Components",
+      "category": "layout",
+      "changes": [
+        {
+          "file": "examples/after/pricing.html",
+          "selector": ".btn",
+          "before": "border-radius: 999px; gradient fill; glow",
+          "after": "8px radius; solid accent or hairline",
+          "signal": "B5"
+        },
+        {
+          "file": "examples/after/pricing.html",
+          "selector": ".plans, .start",
+          "before": "26–32px radius with saturated border",
+          "after": "12px radius with a hairline",
+          "signal": "A5"
+        },
+        {
+          "file": "examples/after/pricing.html",
+          "selector": "a, button, summary",
+          "before": "no focus rule",
+          "after": ":focus-visible outline 2px, offset 2px",
+          "signal": "E3"
+        }
+      ]
+    },
+    {
+      "pass": "8. Visual",
+      "category": "layout",
+      "changes": [
+        {
+          "file": "examples/after/pricing.html",
+          "selector": ".plans",
+          "before": "emoji feature lists and a glowing ribbon",
+          "after": "a real comparison table with limits and prices",
+          "signal": "B4"
+        },
+        {
+          "file": "examples/after/pricing.html",
+          "selector": ".notes",
+          "before": "three repeated stat blocks",
+          "after": "included items next to two questions",
+          "signal": "B1"
+        }
+      ]
+    },
+    {
+      "pass": "9. Motion",
+      "category": "motion",
+      "changes": [
+        {
+          "file": "examples/after/pricing.html",
+          "selector": ".dot",
+          "before": "animation: pulse 1.4s infinite",
+          "after": "removed",
+          "signal": "F1"
+        },
+        {
+          "file": "examples/after/pricing.html",
+          "selector": ".plan, .links a",
+          "before": "transition: all 300ms; hover:scale(1.05)",
+          "after": "background-color / border-color 140ms",
+          "signal": "F2"
+        },
+        {
+          "file": "examples/after/pricing.html",
+          "selector": ".grow",
+          "before": "transition: width 400ms",
+          "after": "removed",
+          "signal": "F3"
+        }
+      ]
+    }
+  ],
+  "removed": [
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6",
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "B5",
+    "C3",
+    "C4",
+    "C5",
+    "D1",
+    "D2",
+    "D3",
+    "E1",
+    "E2",
+    "E3",
+    "F1",
+    "F2"
+  ],
+  "remaining": [],
+  "appeared": [],
+  "waivers": [],
+  "warnings": []
+}

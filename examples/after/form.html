@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orbit — start a project</title>
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --surface: #ffffff;
+    --raised: #eef0f4;
+    --ink: #12161f;
+    --secondary: #3f4756;
+    --muted: #5f6a7d;
+    --hairline: rgba(18, 22, 31, 0.12);
+    --accent: #0f766e;
+    --accent-soft: #d8efec;
+    --accent-ink: #0b5f59;
+    --accent-on: #ffffff;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0e1116;
+      --surface: #161b23;
+      --raised: #1e242e;
+      --ink: #eef1f6;
+      --secondary: #c3cad6;
+      --muted: #9aa6b8;
+      --hairline: rgba(238, 241, 246, 0.16);
+      --accent: #4fc7b8;
+      --accent-soft: #123430;
+      --accent-ink: #8fe4d9;
+      --accent-on: #062a27;
+      color-scheme: dark;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+    font-size: 15px; line-height: 1.55;
+  }
+  a { color: inherit; text-decoration: none; }
+  .page { max-width: 1040px; margin: 0 auto; padding: 0 28px; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--hairline); }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 16px; }
+  .mark { width: 26px; height: 26px; border-radius: 7px; background: var(--accent); color: var(--surface); display: grid; place-items: center; font-size: 13px; }
+  header a.help-link { padding: 9px 12px; border-radius: 7px; color: var(--secondary); font-size: 14px; }
+  header a.help-link:hover { background: var(--raised); color: var(--ink); }
+  main { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 56px; align-items: start; padding: 56px 0 64px; }
+  .kicker { font-size: 12px; color: var(--muted); }
+  h1 { margin: 8px 0 0; font-size: 44px; line-height: 1.06; letter-spacing: -0.025em; font-weight: 500; }
+  .lede { margin: 16px 0 0; max-width: 42ch; font-size: 16px; line-height: 1.55; color: var(--secondary); }
+  .steps { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 16px; }
+  .step { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 12px; }
+  .step .n { width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--hairline); display: grid; place-items: center; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .step h2 { margin: 0; font-size: 15px; font-weight: 500; }
+  .step p { margin: 2px 0 0; font-size: 14px; color: var(--secondary); }
+  .panel { background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px; padding: 24px; }
+  .panel h2 { margin: 0; font-size: 18px; font-weight: 500; }
+  .panel > p { margin: 6px 0 0; font-size: 14px; color: var(--secondary); }
+  form { display: grid; gap: 16px; margin-top: 20px; }
+  fieldset { margin: 0; padding: 0; border: 0; display: grid; gap: 16px; }
+  legend { padding: 0; margin-bottom: 2px; font-size: 13px; font-weight: 500; color: var(--secondary); }
+  .field { display: grid; gap: 6px; }
+  label, .label { font-size: 13px; font-weight: 500; color: var(--secondary); }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  input, select, textarea {
+    width: 100%; min-height: 40px; padding: 8px 12px;
+    border-radius: 8px; border: 1px solid var(--hairline);
+    background: var(--surface); color: var(--ink);
+    font: inherit; font-size: 15px;
+    transition: border-color 140ms ease, background-color 140ms ease;
+  }
+  input:hover, select:hover, textarea:hover { border-color: var(--muted); }
+  input::placeholder, textarea::placeholder { color: var(--muted); }
+  textarea { min-height: 96px; resize: vertical; }
+  .hint { margin: 0; font-size: 12px; color: var(--muted); }
+  .check { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 10px; align-items: start; }
+  .check input { width: 24px; height: 24px; min-height: 24px; margin: 0; accent-color: var(--accent); }
+  .check span { font-size: 14px; color: var(--secondary); font-weight: 400; }
+  .check a { display: inline-flex; align-items: center; min-height: 24px; padding: 4px 0; color: var(--accent-ink); text-decoration: underline; text-underline-offset: 2px; }
+  .actions { display: flex; align-items: center; gap: 14px; margin-top: 4px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 44px; padding: 0 18px; border-radius: 8px;
+    border: 1px solid var(--accent); background: var(--accent); color: var(--accent-on);
+    font: inherit; font-weight: 500; cursor: pointer;
+    transition: background-color 140ms ease, border-color 140ms ease;
+  }
+  .btn:hover { background: var(--accent-ink); border-color: var(--accent-ink); }
+  .actions .note { font-size: 12px; color: var(--muted); }
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 2px;
+  }
+  footer { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 22px 0 40px; border-top: 1px solid var(--hairline); font-size: 12px; color: var(--muted); }
+  footer nav { display: flex; gap: 4px; }
+  footer nav a { padding: 9px 10px; border-radius: 7px; color: var(--secondary); }
+  footer nav a:hover { background: var(--raised); color: var(--ink); }
+  .skip { position: absolute; left: -9999px; }
+  .skip:focus { left: 12px; top: 12px; background: var(--surface); padding: 8px 12px; border-radius: 8px; z-index: 2; }
+  @media (max-width: 820px) {
+    main { grid-template-columns: 1fr; gap: 32px; padding-top: 40px; }
+    h1 { font-size: 34px; }
+    .row { grid-template-columns: 1fr; }
+    header { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+  <div class="page">
+    <header>
+      <a class="brand" href="#"><span class="mark">O</span> Orbit</a>
+      <a class="help-link" href="#help">Need help</a>
+    </header>
+
+    <main id="content">
+      <div>
+        <div class="kicker">New project</div>
+        <h1>Tell us what the project needs to cover.</h1>
+        <p class="lede">Two fields decide the rest: who the client is and roughly how many hours the work will take. You can change both later.</p>
+        <ol class="steps">
+          <li class="step"><span class="n">1</span><div><h2>Client and contact</h2><p>One person receives the shared link and the invoice.</p></div></li>
+          <li class="step"><span class="n">2</span><div><h2>Scope and budget</h2><p>Add milestones after the project exists, when the brief is clearer.</p></div></li>
+          <li class="step"><span class="n">3</span><div><h2>First invoice</h2><p>Draft it from logged hours, or set a fixed amount.</p></div></li>
+        </ol>
+      </div>
+
+      <div class="panel">
+        <h2>Project details</h2>
+        <p>Nothing is sent to the client until you share the link.</p>
+        <form>
+          <fieldset>
+            <legend>Client</legend>
+            <div class="row">
+              <div class="field">
+                <label for="first">First name</label>
+                <input id="first" name="first" autocomplete="given-name" placeholder="Mara">
+              </div>
+              <div class="field">
+                <label for="last">Last name</label>
+                <input id="last" name="last" autocomplete="family-name" placeholder="Ellis">
+              </div>
+            </div>
+            <div class="field">
+              <label for="email">Work email</label>
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="mara@northwind.studio">
+              <p class="hint">Used for the shared link and invoice delivery.</p>
+            </div>
+            <div class="field">
+              <label for="company">Company</label>
+              <input id="company" name="company" autocomplete="organization" placeholder="Northwind">
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Scope</legend>
+            <div class="row">
+              <div class="field">
+                <label for="size">Team size</label>
+                <select id="size" name="size">
+                  <option>Just me</option>
+                  <option selected>2 to 5 people</option>
+                  <option>6 to 20 people</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="budget">Budget</label>
+                <input id="budget" name="budget" inputmode="numeric" placeholder="$8,400">
+              </div>
+            </div>
+            <div class="field">
+              <label for="brief">Brief</label>
+              <textarea id="brief" name="brief" placeholder="Two lines about the work"></textarea>
+              <p class="hint">Optional. The client sees this note on the shared page.</p>
+            </div>
+          </fieldset>
+
+          <label class="check" for="terms">
+            <input id="terms" name="terms" type="checkbox">
+            <span>I agree to the <a href="#terms">terms</a> and the <a href="#privacy">privacy policy</a>.</span>
+          </label>
+
+          <div class="actions">
+            <button class="btn" type="submit">Create project</button>
+            <span class="note">You can archive it before the first invoice.</span>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <footer>
+      <span>Orbit, 2026</span>
+      <nav aria-label="Footer">
+        <a href="#privacy">Privacy</a>
+        <a href="#terms">Terms</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </footer>
+  </div>
+</body>
+</html>

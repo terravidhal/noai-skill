@@ -1,0 +1,495 @@
+{
+  "rubric": "1",
+  "tool": "trueline",
+  "toolVersion": "1.0.0",
+  "input": "examples/before/form.html",
+  "mode": "dom",
+  "confidence": 1,
+  "viewport": "1440x900",
+  "theme": "light",
+  "slop": 54,
+  "design": 46,
+  "categories": {
+    "color": {
+      "slop": 20.6,
+      "max": 30
+    },
+    "layout": {
+      "slop": 8.7,
+      "max": 20
+    },
+    "type": {
+      "slop": 4.5,
+      "max": 15
+    },
+    "copy": {
+      "slop": 13.2,
+      "max": 15
+    },
+    "contrast": {
+      "slop": 2.2,
+      "max": 10
+    },
+    "motion": {
+      "slop": 4.3,
+      "max": 10
+    }
+  },
+  "signals": [
+    {
+      "id": "A1",
+      "name": "purple or blue gradient surface",
+      "category": "color",
+      "weight": 6,
+      "severity": 0.85,
+      "penalty": 5.1,
+      "evidence": [
+        {
+          "selector": "h1",
+          "detail": "linear-gradient(90deg, rgb(255, 255, 255), rgb(249, 168, 212), rgb(196, 181, 253))"
+        },
+        {
+          "selector": "button.btn",
+          "detail": "linear-gradient(135deg, rgb(168, 85, 247), rgb(236, 72, 153))"
+        }
+      ],
+      "measured": {
+        "count": 2
+      }
+    },
+    {
+      "id": "A2",
+      "name": "gradient text",
+      "category": "color",
+      "weight": 6,
+      "severity": 0.75,
+      "penalty": 4.5,
+      "evidence": [
+        {
+          "selector": "h1",
+          "detail": "background-clip: text; linear-gradient(90deg, rgb(255, 255, 255), rgb(249, 168, 212), rgb(196, 181, 253))"
+        }
+      ],
+      "measured": {
+        "count": 1
+      }
+    },
+    {
+      "id": "A3",
+      "name": "saturated glow",
+      "category": "color",
+      "weight": 5,
+      "severity": 1,
+      "penalty": 5,
+      "evidence": [
+        {
+          "selector": "main.card",
+          "detail": "rgba(30, 27, 75, 0.42) 0px 30px 80px 0px"
+        },
+        {
+          "selector": "div.logo",
+          "detail": "rgba(244, 114, 182, 0.7) 0px 0px 30px 0px"
+        },
+        {
+          "selector": "button.btn",
+          "detail": "rgba(168, 85, 247, 0.55) 0px 14px 34px 0px"
+        },
+        {
+          "selector": "span.dot",
+          "detail": "rgba(52, 211, 153, 0.9) 0px 0px 16px 0px"
+        },
+        {
+          "selector": "div.proof-card",
+          "detail": "rgba(244, 63, 94, 0.7) 0px 0px 30px 0px"
+        }
+      ],
+      "measured": {
+        "count": 7
+      }
+    },
+    {
+      "id": "A5",
+      "name": "saturated border",
+      "category": "color",
+      "weight": 3,
+      "severity": 0.8,
+      "penalty": 2.4,
+      "evidence": [
+        {
+          "selector": "main.card",
+          "detail": "1px rgba(196, 181, 253, 0.6)"
+        },
+        {
+          "selector": "div.proof-card",
+          "detail": "1px rgba(167, 139, 250, 0.6)"
+        },
+        {
+          "selector": "div.proof-card",
+          "detail": "1px rgba(167, 139, 250, 0.6)"
+        },
+        {
+          "selector": "div.proof-card",
+          "detail": "1px rgba(167, 139, 250, 0.6)"
+        }
+      ],
+      "measured": {
+        "count": 4
+      }
+    },
+    {
+      "id": "A6",
+      "name": "glassmorphism",
+      "category": "color",
+      "weight": 3,
+      "severity": 0.7,
+      "penalty": 2.1,
+      "evidence": [
+        {
+          "selector": "main.card",
+          "detail": "backdrop-filter: blur(22px)"
+        }
+      ],
+      "measured": {
+        "count": 1
+      }
+    },
+    {
+      "id": "A7",
+      "name": "many saturated hues in the chrome",
+      "category": "color",
+      "weight": 3,
+      "severity": 0.5,
+      "penalty": 1.5,
+      "evidence": [
+        {
+          "selector": "page",
+          "detail": "6 distinct hue buckets: 240, 360, 270, 150, 60, 180"
+        }
+      ],
+      "measured": {
+        "hues": 6
+      }
+    },
+    {
+      "id": "B1",
+      "name": "identical cards repeated",
+      "category": "layout",
+      "weight": 7,
+      "severity": 0.7,
+      "penalty": 4.9,
+      "evidence": [
+        {
+          "selector": "div.proof",
+          "detail": "3 siblings share the same size and structure (142x101)"
+        }
+      ],
+      "measured": {
+        "groups": 1
+      }
+    },
+    {
+      "id": "B3",
+      "name": "centered stacked hero",
+      "category": "layout",
+      "weight": 4,
+      "severity": 0.75,
+      "penalty": 3,
+      "evidence": [
+        {
+          "selector": "h1",
+          "detail": "text-align: center on \"Let us supercharge your onboarding! 🚀\""
+        }
+      ],
+      "measured": {}
+    },
+    {
+      "id": "B5",
+      "name": "everything is a pill",
+      "category": "layout",
+      "weight": 2,
+      "severity": 0.375,
+      "penalty": 0.75,
+      "evidence": [
+        {
+          "selector": "input",
+          "detail": "border-radius: 999px"
+        },
+        {
+          "selector": "input",
+          "detail": "border-radius: 999px"
+        },
+        {
+          "selector": "input",
+          "detail": "border-radius: 999px"
+        }
+      ],
+      "measured": {
+        "controls": 8,
+        "pills": 6,
+        "share": 0.75
+      }
+    },
+    {
+      "id": "C3",
+      "name": "uppercase tracked labels",
+      "category": "type",
+      "weight": 3,
+      "severity": 0.85,
+      "penalty": 2.55,
+      "evidence": [
+        {
+          "selector": "div.eyebrow",
+          "detail": "\"Step 1 of 2\" 1.92px tracking"
+        },
+        {
+          "selector": "label",
+          "detail": "\"First name ✨\" 1.44px tracking"
+        },
+        {
+          "selector": "label",
+          "detail": "\"Last name 👋\" 1.44px tracking"
+        },
+        {
+          "selector": "label",
+          "detail": "\"Work email 📧\" 1.44px tracking"
+        }
+      ],
+      "measured": {
+        "count": 7
+      }
+    },
+    {
+      "id": "C4",
+      "name": "body text too small",
+      "category": "type",
+      "weight": 2,
+      "severity": 1,
+      "penalty": 2,
+      "evidence": [
+        {
+          "selector": "p.sub",
+          "detail": "12px: \"Seamlessly set up your first project in seconds. T\""
+        },
+        {
+          "selector": "p.quote",
+          "detail": "12px: \"“Orbit changed everything for us!” — John Doe, CEO\""
+        },
+        {
+          "selector": "p.quote",
+          "detail": "12px: \"“Absolutely seamless. 99.99% uptime!” — Jane Doe, \""
+        }
+      ],
+      "measured": {
+        "body": 4,
+        "small": 4
+      }
+    },
+    {
+      "id": "D1",
+      "name": "emoji in the interface",
+      "category": "copy",
+      "weight": 5,
+      "severity": 1,
+      "penalty": 5,
+      "evidence": [
+        {
+          "selector": "h1",
+          "detail": "\"Let us supercharge your onboarding! 🚀\""
+        },
+        {
+          "selector": "label",
+          "detail": "\"First name ✨\""
+        },
+        {
+          "selector": "label",
+          "detail": "\"Last name 👋\""
+        },
+        {
+          "selector": "label",
+          "detail": "\"Work email 📧\""
+        }
+      ],
+      "measured": {
+        "count": 12
+      }
+    },
+    {
+      "id": "D2",
+      "name": "hype copy and greetings",
+      "category": "copy",
+      "weight": 4,
+      "severity": 1,
+      "penalty": 4,
+      "evidence": [
+        {
+          "selector": "h1",
+          "detail": "\"Let us supercharge your onboarding! 🚀\""
+        },
+        {
+          "selector": "p.sub",
+          "detail": "\"Seamlessly set up your first project in seconds. Trusted by 10,000+ teams!\""
+        },
+        {
+          "selector": "p.help",
+          "detail": "\"Takes less than 2 minutes. No credit card required!\""
+        },
+        {
+          "selector": "b",
+          "detail": "\"10x\""
+        }
+      ],
+      "measured": {
+        "count": 11
+      }
+    },
+    {
+      "id": "D3",
+      "name": "placeholder data presented as real",
+      "category": "copy",
+      "weight": 3,
+      "severity": 1,
+      "penalty": 3,
+      "evidence": [
+        {
+          "selector": "p.sub",
+          "detail": "\"Seamlessly set up your first project in seconds. Trusted by 10,000+ teams!\""
+        },
+        {
+          "selector": "input",
+          "detail": "\"John Doe\""
+        },
+        {
+          "selector": "input",
+          "detail": "\"Jane Doe\""
+        },
+        {
+          "selector": "input",
+          "detail": "\"you@example.com\""
+        }
+      ],
+      "measured": {
+        "count": 8
+      }
+    },
+    {
+      "id": "D4",
+      "name": "wordy labels and placeholders",
+      "category": "copy",
+      "weight": 3,
+      "severity": 0.4,
+      "penalty": 1.2,
+      "evidence": [
+        {
+          "selector": "textarea",
+          "detail": "\"Tell us anything about your project...\""
+        },
+        {
+          "selector": "label.check",
+          "detail": "\"I agree to the terms and the privacy policy.\""
+        }
+      ],
+      "measured": {
+        "count": 2
+      }
+    },
+    {
+      "id": "E2",
+      "name": "unreadable meta text",
+      "category": "contrast",
+      "weight": 2,
+      "severity": 1,
+      "penalty": 2,
+      "evidence": [
+        {
+          "selector": "div.eyebrow",
+          "detail": "1.39:1 \"Step 1 of 2\""
+        },
+        {
+          "selector": "p.sub",
+          "detail": "1.85:1 \"Seamlessly set up your first project in seconds. T\""
+        },
+        {
+          "selector": "label",
+          "detail": "1.39:1 \"First name ✨\""
+        },
+        {
+          "selector": "label",
+          "detail": "1.39:1 \"Last name 👋\""
+        }
+      ],
+      "measured": {
+        "checked": 24,
+        "failing": 20
+      }
+    },
+    {
+      "id": "E3",
+      "name": "keyboard focus and small targets",
+      "category": "contrast",
+      "weight": 3,
+      "severity": 0.075,
+      "penalty": 0.22,
+      "evidence": [
+        {
+          "selector": "input",
+          "detail": "18x18 target"
+        }
+      ],
+      "measured": {
+        "focusVisible": true,
+        "smallTargets": 1
+      }
+    },
+    {
+      "id": "F1",
+      "name": "decorative infinite animation",
+      "category": "motion",
+      "weight": 4,
+      "severity": 0.333,
+      "penalty": 1.33,
+      "evidence": [
+        {
+          "selector": "span.dot",
+          "detail": "pulse infinite"
+        }
+      ],
+      "measured": {
+        "count": 1
+      }
+    },
+    {
+      "id": "F2",
+      "name": "transition-all and hover scale",
+      "category": "motion",
+      "weight": 3,
+      "severity": 1,
+      "penalty": 3,
+      "evidence": [
+        {
+          "selector": "input",
+          "detail": "all"
+        },
+        {
+          "selector": "input",
+          "detail": "all"
+        },
+        {
+          "selector": "input",
+          "detail": "all"
+        }
+      ],
+      "measured": {
+        "count": 11
+      }
+    }
+  ],
+  "waived": [],
+  "hiddenSelectors": [],
+  "notes": [],
+  "meta": {
+    "elements": 46,
+    "texts": 37,
+    "surfaces": 12,
+    "durationMs": 1875
+  }
+}

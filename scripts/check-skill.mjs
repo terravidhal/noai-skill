@@ -43,28 +43,55 @@ const required = [
   "skills/trueline/assets/example-before.html",
   "examples/before/dashboard.html",
   "examples/before/landing.html",
+  "examples/before/pricing.html",
+  "examples/before/form.html",
   "examples/after/dashboard.html",
   "examples/after/landing.html",
+  "examples/after/pricing.html",
+  "examples/after/form.html",
   "examples/passes.json",
+  "examples/passes-landing.json",
+  "examples/passes-pricing.json",
+  "examples/passes-form.json",
   "examples/README.md",
+  "examples/reports/README.md",
   "examples/reports/dashboard-before.json",
   "examples/reports/dashboard-after.json",
   "examples/reports/dashboard-report.json",
   "examples/reports/landing-before.json",
   "examples/reports/landing-after.json",
-  "assets/readme/dashboard-before.png",
-  "assets/readme/dashboard-after.png",
-  "assets/readme/landing-before.png",
-  "assets/readme/landing-after.png",
-  "assets/readme/before-after-dashboard.png",
-  "assets/readme/before-after-landing.png",
+  "examples/reports/landing-report.json",
+  "examples/reports/pricing-before.json",
+  "examples/reports/pricing-after.json",
+  "examples/reports/pricing-report.json",
+  "examples/reports/form-before.json",
+  "examples/reports/form-after.json",
+  "examples/reports/form-report.json",
+  "assets/demo.gif",
 ];
+
+const capturePages = ["dashboard", "landing", "pricing", "form"];
+const captureStates = ["before", "after"];
+const captureVariants = ["", "-dark", "-390", "-390-dark"];
+for (const page of capturePages) {
+  for (const state of captureStates) {
+    for (const variant of captureVariants) {
+      required.push(`assets/readme/${page}-${state}${variant}.png`);
+    }
+  }
+  required.push(`assets/readme/before-after-${page}.png`);
+}
+required.push("assets/readme/before-after.png");
 
 const markdown = [
   "README.md",
   "CONTRIBUTING.md",
   "RAPPORT.md",
   "examples/README.md",
+  "examples/reports/README.md",
+  "examples/reports/landing-report.md",
+  "examples/reports/pricing-report.md",
+  "examples/reports/form-report.md",
   "skills/trueline/SKILL.md",
   "skills/trueline/references/signals.md",
   "skills/trueline/references/scoring.md",
@@ -79,11 +106,21 @@ const jsonFiles = [
   "package.json",
   "evals/evals.json",
   "examples/passes.json",
+  "examples/passes-landing.json",
+  "examples/passes-pricing.json",
+  "examples/passes-form.json",
   "examples/reports/dashboard-before.json",
   "examples/reports/dashboard-after.json",
   "examples/reports/dashboard-report.json",
   "examples/reports/landing-before.json",
   "examples/reports/landing-after.json",
+  "examples/reports/landing-report.json",
+  "examples/reports/pricing-before.json",
+  "examples/reports/pricing-after.json",
+  "examples/reports/pricing-report.json",
+  "examples/reports/form-before.json",
+  "examples/reports/form-after.json",
+  "examples/reports/form-report.json",
 ];
 
 function exists(relative) {
@@ -164,6 +201,13 @@ for (const file of required.filter((entry) => entry.endsWith(".png"))) {
   if (!header.equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) errors.push(`${file} is not a PNG`);
 }
 
+if (exists("assets/demo.gif")) {
+  const { size } = statSync(join(root, "assets/demo.gif"));
+  if (size < 20_000) errors.push(`assets/demo.gif looks too small (${size} bytes)`);
+  const header = readFileSync(join(root, "assets/demo.gif")).subarray(0, 6).toString("latin1");
+  if (header !== "GIF89a" && header !== "GIF87a") errors.push("assets/demo.gif is not a GIF");
+}
+
 const textFiles = [...markdown, "package.json", "LICENSE", ".github/workflows/check.yml", "evals/evals.json", "examples/passes.json"];
 const secretPatterns = [
   /-----BEGIN [A-Z ]*PRIVATE KEY-----/,
@@ -183,6 +227,8 @@ for (const file of textFiles) {
 const cases = [
   { before: "examples/before/dashboard.html", after: "examples/after/dashboard.html", minBefore: 55, maxAfter: 10 },
   { before: "examples/before/landing.html", after: "examples/after/landing.html", minBefore: 55, maxAfter: 10 },
+  { before: "examples/before/pricing.html", after: "examples/after/pricing.html", minBefore: 50, maxAfter: 10 },
+  { before: "examples/before/form.html", after: "examples/after/form.html", minBefore: 45, maxAfter: 10 },
 ];
 
 for (const item of cases) {
