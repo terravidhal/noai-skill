@@ -1,8 +1,9 @@
 # Examples — the same screen, before and after
 
 Eight static HTML files, no build, no dependency. Fictional product, fictional
-brands, fictional numbers. Each `after` page is the same content as its `before`
-page, with the craft corrected.
+brands, fictional numbers. Each `after` page keeps the same product, sections and
+argument as its `before` page; the craft is corrected, the copy is made plain and
+the sample data is marked as sample.
 
 | Screen | Slop (computed DOM) | What it shows |
 |---|---:|---|

@@ -1,24 +1,22 @@
 #!/usr/bin/env node
 /**
- * trueline capture — freeze a live page into one standalone HTML file, plus a PNG
- * of what it really looked like. Use it when you only have a URL and need a stable
- * file to score and edit.
+ * trueline capture — turn a URL or a local page into one standalone HTML file
+ * and a PNG of the frame that was measured.
  *
  *   node capture.mjs https://example.com trueline/original.html
  *   node capture.mjs ./page.html trueline/original.html --dark --png trueline/before.png
  *
- * The snapshot inlines CSS, fonts referenced by CSS, images and posters, removes
- * scripts, and lazy-loads the page first. It is a working copy, not a rewrite of
- * the real project.
+ * The page is scrolled once to reveal lazy content, its stylesheets and media
+ * are inlined, scripts and preloads are dropped, and the chosen colour scheme is
+ * frozen. The result is a working copy; the real project is untouched.
  */
-import { createRequire } from "node:module";
-import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
+import { writeFileSync, mkdirSync, existsSync, statSync } from "node:fs";
+import { join, resolve, dirname } from "node:path";
 import { pathToFileURL } from "node:url";
 
-const USAGE = `usage: node capture.mjs <url|file> <out.html> [options]
+const HELP = `usage: node capture.mjs <url|file> <out.html> [options]
 
-  --png <file>            also save a screenshot (default: <out>.live.png)
+  --png <file>            screenshot path (default: <out>.live.png)
   --dark | --light        freeze prefers-color-scheme
   --theme <light|dark>    same as --light or --dark
   --width <px>            viewport width, default 1440
@@ -28,209 +26,372 @@ const USAGE = `usage: node capture.mjs <url|file> <out.html> [options]
   --chrome <path>         explicit Chromium executable
   --help                  this text`;
 
-function fail(message) {
+const FLAGS_WITH_VALUE = new Set([
+  "--png", "--theme", "--width", "--height", "--wait", "--playwright", "--chrome",
+]);
+
+function die(message) {
   console.error(`trueline capture: ${message}`);
   process.exit(1);
 }
 
+function positive(name, raw) {
+  const value = Number(raw);
+  if (!Number.isFinite(value) || value <= 0) die(`--${name} expects a positive number, got "${raw}"`);
+  return Math.round(value);
+}
+
 function parseArgs(argv) {
   const options = {
-    target: null, out: null, png: null, scheme: "no-preference",
-    width: 1440, height: 900, wait: 600, playwright: null, chrome: null,
+    target: null,
+    out: null,
+    png: null,
+    scheme: null,
+    width: 1440,
+    height: 900,
+    wait: 600,
+    playwright: null,
+    chrome: null,
   };
-  const positionals = [];
-  const take = (index, name) => {
-    const value = argv[index + 1];
-    if (value === undefined || value.startsWith("--")) fail(`--${name} needs a value`);
-    return value;
-  };
-  for (let i = 0; i < argv.length; i += 1) {
-    const arg = argv[i];
-    if (arg === "--help" || arg === "-h") { console.log(USAGE); process.exit(0); }
-    else if (arg === "--dark") options.scheme = "dark";
-    else if (arg === "--light") options.scheme = "light";
-    else if (arg === "--theme") { options.scheme = take(i, "theme") === "dark" ? "dark" : "light"; i += 1; }
-    else if (arg === "--png") { options.png = take(i, "png"); i += 1; }
-    else if (arg === "--width") { options.width = Number(take(i, "width")); i += 1; }
-    else if (arg === "--height") { options.height = Number(take(i, "height")); i += 1; }
-    else if (arg === "--wait") { options.wait = Number(take(i, "wait")); i += 1; }
-    else if (arg === "--playwright") { options.playwright = take(i, "playwright"); i += 1; }
-    else if (arg === "--chrome") { options.chrome = take(i, "chrome"); i += 1; }
-    else if (arg.startsWith("--")) fail(`unknown option ${arg}`);
-    else positionals.push(arg);
+  const positional = [];
+
+  for (let index = 0; index < argv.length; index += 1) {
+    let token = argv[index];
+
+    if (token === "--help" || token === "-h") {
+      console.log(HELP);
+      process.exit(0);
+    }
+    if (token === "--dark" || token === "--light") {
+      options.scheme = token.slice(2);
+      continue;
+    }
+
+    let value;
+    const equal = token.indexOf("=");
+    if (token.startsWith("--") && equal > 0) {
+      value = token.slice(equal + 1);
+      token = token.slice(0, equal);
+    }
+
+    if (!FLAGS_WITH_VALUE.has(token)) {
+      if (token.startsWith("--")) die(`unknown option ${token}`);
+      positional.push(token);
+      continue;
+    }
+
+    if (value === undefined) {
+      value = argv[index + 1];
+      index += 1;
+    }
+    if (value === undefined || value.startsWith("--")) die(`${token} needs a value`);
+
+    if (token === "--png") options.png = value;
+    else if (token === "--theme") {
+      if (value !== "light" && value !== "dark") die(`--theme expects light or dark, got "${value}"`);
+      options.scheme = value;
+    } else if (token === "--width") options.width = positive("width", value);
+    else if (token === "--height") options.height = positive("height", value);
+    else if (token === "--wait") options.wait = positive("wait", value);
+    else if (token === "--playwright") options.playwright = value;
+    else if (token === "--chrome") options.chrome = value;
   }
-  if (positionals.length < 2) { console.error(USAGE); process.exit(1); }
-  [options.target, options.out] = positionals;
-  if (!Number.isFinite(options.width) || !Number.isFinite(options.height)) fail("width and height must be numbers");
+
+  if (positional.length < 2) {
+    console.error(HELP);
+    process.exit(1);
+  }
+  [options.target, options.out] = positional;
   return options;
 }
 
-async function loadPlaywright(explicit) {
+function moduleCandidates(spec) {
   const candidates = [];
-  if (explicit) {
-    const base = resolve(explicit);
-    if (existsSync(base) && statSync(base).isDirectory()) {
-      for (const entry of ["index.mjs", "index.js"]) {
-        const file = join(base, entry);
-        if (existsSync(file)) candidates.push(pathToFileURL(file).href);
+  if (spec) {
+    const absolute = resolve(spec);
+    if (existsSync(absolute)) {
+      if (statSync(absolute).isDirectory()) {
+        for (const entry of ["index.mjs", "index.js"]) {
+          const file = join(absolute, entry);
+          if (existsSync(file)) candidates.push(pathToFileURL(file).href);
+        }
+      } else {
+        candidates.push(pathToFileURL(absolute).href);
       }
-    } else if (existsSync(base)) candidates.push(pathToFileURL(base).href);
-    else candidates.push(explicit);
+    } else {
+      candidates.push(spec);
+    }
   }
   candidates.push("playwright", "playwright-core");
-  for (const name of candidates) {
+  return candidates;
+}
+
+async function loadPlaywright(spec) {
+  for (const candidate of moduleCandidates(spec)) {
     try {
-      const module = await import(name);
-      return module.chromium ? module : module.default;
-    } catch { /* next */ }
+      const loaded = await import(candidate);
+      const kit = loaded?.chromium ? loaded : loaded?.default;
+      if (kit?.chromium) return kit;
+    } catch {
+      /* try the next candidate */
+    }
   }
-  return null;
+  die("Playwright is not installed. Run `npm install -D playwright`, then `npx playwright install chromium`, or pass --playwright <folder>.");
 }
 
-const options = parseArgs(process.argv.slice(2));
-const playwright = await loadPlaywright(options.playwright);
-if (!playwright) {
-  fail("Playwright is not installed. Run `npm install -D playwright` then `npx playwright install chromium`, or pass --playwright <folder>.");
+function targetToUrl(target) {
+  if (/^https?:\/\//i.test(target)) return target;
+  const absolute = resolve(target);
+  if (!existsSync(absolute)) die(`no such file: ${target}`);
+  return pathToFileURL(absolute).href;
 }
 
-const browser = await playwright.chromium.launch({
-  executablePath: options.chrome || undefined,
-  args: ["--no-sandbox", "--disable-dev-shm-usage"],
-});
-
-try {
-  const page = await browser.newPage({
-    viewport: { width: options.width, height: options.height },
-    colorScheme: options.scheme,
-  });
-  const url = /^https?:/.test(options.target)
-    ? options.target
-    : pathToFileURL(resolve(options.target)).href;
-  await page.goto(url, { waitUntil: "networkidle", timeout: 60_000 });
-  await page.evaluate(() => document.fonts?.ready);
-  await page.waitForTimeout(200);
+async function scrollAndSettle(page) {
   await page.evaluate(async () => {
-    const pause = (ms) => new Promise((done) => setTimeout(done, ms));
+    const sleep = (ms) => new Promise((resolveSleep) => setTimeout(resolveSleep, ms));
     const root = document.scrollingElement || document.documentElement;
-    let last = root.scrollHeight;
-    for (let step = 0; step < 30 && root.scrollTop < 24_000; step += 1) {
+    const limit = 24_000;
+    let travelled = 0;
+
+    while (travelled < limit) {
+      const heightBefore = root.scrollHeight;
       window.scrollBy(0, window.innerHeight);
-      await pause(120);
-      const grown = root.scrollHeight;
-      if (grown <= last && root.scrollTop + window.innerHeight >= grown) break;
-      last = grown;
+      travelled += window.innerHeight;
+      await sleep(140);
+      const heightAfter = root.scrollHeight;
+      const atBottom = window.scrollY + window.innerHeight >= heightAfter;
+      if (atBottom && heightAfter === heightBefore) break;
     }
     window.scrollTo(0, 0);
-    const pending = [...document.images].filter((image) => !image.complete);
-    const loaded = (image) => new Promise((done) => {
-      image.addEventListener("load", done, { once: true });
-      image.addEventListener("error", done, { once: true });
+
+    const finish = (image) => new Promise((resolveImage) => {
+      if (image.complete) {
+        resolveImage();
+        return;
+      }
+      image.addEventListener("load", resolveImage, { once: true });
+      image.addEventListener("error", resolveImage, { once: true });
     });
-    await Promise.race([Promise.all(pending.map(loaded)), pause(5_000)]);
+    const waiting = [...document.images].map(finish);
+    await Promise.race([Promise.all(waiting), sleep(5_000)]);
   });
-  await page.waitForTimeout(options.wait);
+}
 
-  const html = await page.evaluate(async (scheme) => {
-    const LIMIT = 4_000_000;
-    const absolute = (value, base = location.href) => {
-      try { return new URL(value, base).href; } catch { return value; }
-    };
-    const cache = new Map();
-    const asDataUrl = async (href) => {
-      if (!href || href.startsWith("data:")) return href;
-      if (!cache.has(href)) {
-        cache.set(href, fetch(href)
-          .then((response) => (response.ok ? response.blob() : null))
-          .then((blob) => (blob && blob.size < LIMIT ? new Promise((done) => {
-            const reader = new FileReader();
-            reader.onload = () => done(reader.result);
-            reader.readAsDataURL(blob);
-          }) : href))
-          .catch(() => href));
-      }
-      return cache.get(href);
-    };
-    const inlineCssUrls = async (css, base) => {
-      const found = [...css.matchAll(/url\((['"]?)(?!data:)([^)'"]+)\1\)/g)];
-      let result = css;
-      for (const [whole, , value] of found) {
-        if (/^(#|%23)/.test(value.trim())) continue;
-        const data = await asDataUrl(absolute(value.trim(), base));
-        result = result.split(whole).join(`url("${data}")`);
-      }
-      return result;
-    };
+function snapshotInPage({ scheme }) {
+  const MAX_ASSET_BYTES = 4_000_000;
+  const assetCache = new Map();
 
-    const css = [];
-    let rawCss = "";
-    for (const sheet of document.styleSheets) {
-      const owner = sheet.ownerNode;
-      let text = "";
-      let base = location.href;
-      if (sheet.href) {
-        base = sheet.href;
-        text = await fetch(sheet.href).then((response) => (response.ok ? response.text() : "")).catch(() => "");
-      } else if (owner && owner.textContent.trim()) {
-        text = owner.textContent;
-      }
-      if (!text) {
-        try { text = [...sheet.cssRules].map((rule) => rule.cssText).join("\n"); } catch { /* cross-origin */ }
-      }
-      rawCss += `\n${text}`;
-      const media = sheet.media && sheet.media.mediaText;
-      const wrapped = media && media !== "all" ? `@media ${media} {\n${text}\n}` : text;
-      css.push(await inlineCssUrls(wrapped, base));
+  const asAbsolute = (href, base) => {
+    try {
+      return new URL(href, base || document.baseURI).href;
+    } catch {
+      return href;
     }
+  };
 
-    const copy = document.documentElement.cloneNode(true);
-    const liveImages = document.images;
-    copy.querySelectorAll("img").forEach((node, index) => {
-      const selected = liveImages[index]?.currentSrc;
-      if (selected) node.setAttribute("src", selected);
+  const bytesToBase64 = (bytes) => {
+    let binary = "";
+    const block = 0x2000;
+    for (let offset = 0; offset < bytes.length; offset += block) {
+      binary += String.fromCharCode(...bytes.subarray(offset, offset + block));
+    }
+    return btoa(binary);
+  };
+
+  const asDataUri = async (href) => {
+    if (!href || /^data:/i.test(href)) return href;
+    if (!assetCache.has(href)) {
+      assetCache.set(href, (async () => {
+        try {
+          const response = await fetch(href);
+          if (!response.ok) return href;
+          const blob = await response.blob();
+          if (blob.size >= MAX_ASSET_BYTES) return href;
+          const bytes = new Uint8Array(await blob.arrayBuffer());
+          return `data:${blob.type || "application/octet-stream"};base64,${bytesToBase64(bytes)}`;
+        } catch {
+          return href;
+        }
+      })());
+    }
+    return assetCache.get(href);
+  };
+
+  const inlineCssAssets = async (cssText, base) => {
+    const pattern = /url\(\s*(["']?)([^"')]+)\1\s*\)/gi;
+    let output = cssText;
+    for (const match of cssText.matchAll(pattern)) {
+      const raw = match[2].trim();
+      if (!raw || /^(?:data:|#|%23)/i.test(raw)) continue;
+      const absolute = asAbsolute(raw, base);
+      const data = await asDataUri(absolute);
+      if (data !== absolute) output = output.split(match[0]).join(`url("${data}")`);
+    }
+    return output;
+  };
+
+  const freezeScheme = (cssText, chosen) => {
+    if (chosen !== "light" && chosen !== "dark") return cssText;
+    return cssText.replace(/\(\s*prefers-color-scheme\s*:\s*(dark|light)\s*\)/gi, (whole, value) => {
+      return value.toLowerCase() === chosen ? "(min-width: 0px)" : "(max-width: 0px)";
     });
-    copy.querySelectorAll("script, noscript, link[rel='stylesheet'], link[rel='preload'], link[rel='modulepreload'], style").forEach((node) => node.remove());
-    copy.querySelectorAll("[srcset]").forEach((node) => node.removeAttribute("srcset"));
-    copy.querySelectorAll("source").forEach((node) => node.remove());
-    copy.querySelectorAll("[loading]").forEach((node) => node.removeAttribute("loading"));
-    for (const node of copy.querySelectorAll("img[src], video[poster], image")) {
-      const attr = node.tagName === "VIDEO" ? "poster" : node.tagName.toLowerCase() === "image" ? "href" : "src";
-      const value = node.getAttribute(attr);
-      if (value) node.setAttribute(attr, await asDataUrl(absolute(value)));
-    }
-    for (const node of copy.querySelectorAll("a[href]")) node.setAttribute("href", absolute(node.getAttribute("href")));
-    for (const node of copy.querySelectorAll("[style*='url(']")) node.setAttribute("style", await inlineCssUrls(node.getAttribute("style"), location.href));
+  };
 
-    let text = css.join("\n");
-    if (scheme === "dark" || scheme === "light") {
-      const other = scheme === "dark" ? "light" : "dark";
-      text = text
-        .replace(new RegExp(`prefers-color-scheme\\s*:\\s*${scheme}`, "g"), "min-width: 0px")
-        .replace(new RegExp(`prefers-color-scheme\\s*:\\s*${other}`, "g"), "max-width: 0px");
-      const meta = document.createElement("meta");
-      meta.name = "color-scheme";
-      meta.content = scheme;
-      copy.querySelector("head").prepend(meta);
+  const collectStyles = async () => {
+    const chunks = [];
+    let sourceLength = 0;
+
+    for (const stylesheet of document.styleSheets) {
+      let origin = location.href;
+      let body = "";
+      const tag = stylesheet.ownerNode;
+
+      if (stylesheet.href) {
+        origin = stylesheet.href;
+        try {
+          const reply = await fetch(stylesheet.href);
+          if (reply.ok) body = await reply.text();
+        } catch {
+          /* cross-origin sheet: fall through */
+        }
+      } else if (tag && tag.textContent) {
+        body = tag.textContent;
+      }
+
+      if (!body.trim()) {
+        try {
+          const rules = [];
+          for (const rule of stylesheet.cssRules) rules.push(rule.cssText);
+          body = rules.join("\n");
+        } catch {
+          /* protected sheet */
+        }
+      }
+      if (!body.trim()) continue;
+
+      sourceLength += body.length;
+      const media = stylesheet.media && stylesheet.media.mediaText;
+      if (media && media !== "all") body = `@media ${media} {\n${body}\n}`;
+      chunks.push(await inlineCssAssets(body, origin));
     }
-    const style = document.createElement("style");
-    style.textContent = text;
-    copy.querySelector("head").appendChild(style);
+    return { css: freezeScheme(chunks.join("\n"), chosen), sourceLength };
+  };
+
+  const clone = document.documentElement.cloneNode(true);
+  const liveImages = [...document.images];
+
+  const disposable = [
+    "script",
+    "noscript",
+    "style",
+    "link[rel='stylesheet']",
+    "link[rel='preload']",
+    "link[rel='modulepreload']",
+  ].join(", ");
+  for (const node of clone.querySelectorAll(disposable)) node.remove();
+  for (const node of clone.querySelectorAll("source")) node.remove();
+  for (const node of clone.querySelectorAll("[srcset]")) node.removeAttribute("srcset");
+  for (const node of clone.querySelectorAll("[loading]")) node.removeAttribute("loading");
+
+  clone.querySelectorAll("img").forEach((node, index) => {
+    const live = liveImages[index];
+    const src = live?.currentSrc || node.getAttribute("src");
+    if (src) node.setAttribute("src", src);
+  });
+
+  const chosen = scheme === "light" || scheme === "dark" ? scheme : null;
+  return (async () => {
+    const { css, sourceLength } = await collectStyles();
+
+    const attributeFor = (tagName) => {
+      if (tagName === "VIDEO") return "poster";
+      if (tagName === "image") return "href";
+      return "src";
+    };
+    const mediaSelector = ["img[src]", "video[poster]", "image"].join(", ");
+    for (const node of clone.querySelectorAll(mediaSelector)) {
+      const attribute = attributeFor(node.tagName);
+      const raw = node.getAttribute(attribute);
+      if (raw) node.setAttribute(attribute, await asDataUri(asAbsolute(raw)));
+    }
+    for (const node of clone.querySelectorAll("a[href]")) {
+      node.setAttribute("href", asAbsolute(node.getAttribute("href")));
+    }
+    for (const node of clone.querySelectorAll("[style]")) {
+      const inline = node.getAttribute("style");
+      if (!inline.includes("url(")) continue;
+      node.setAttribute("style", await inlineCssAssets(inline, document.baseURI));
+    }
+
+    let head = clone.querySelector("head");
+    if (!head) {
+      head = document.createElement("head");
+      clone.prepend(head);
+    }
+
+    if (chosen) {
+      const schemeMeta = document.createElement("meta");
+      schemeMeta.name = "color-scheme";
+      schemeMeta.content = chosen;
+      head.prepend(schemeMeta);
+    }
     const marker = document.createElement("meta");
     marker.name = "trueline-capture";
     marker.content = "standalone copy for scoring and editing";
-    copy.querySelector("head").prepend(marker);
-    return { html: "<!doctype html>\n" + copy.outerHTML, cssLength: rawCss.length };
-  }, options.scheme);
+    head.prepend(marker);
 
-  mkdirSync(dirname(resolve(options.out)), { recursive: true });
-  writeFileSync(resolve(options.out), html.html);
-  const png = options.png || resolve(options.out).replace(/\.html?$/, "") + ".live.png";
-  mkdirSync(dirname(resolve(png)), { recursive: true });
-  await page.evaluate(() => window.scrollTo(0, 0));
-  await page.waitForTimeout(120);
-  await page.screenshot({ path: resolve(png), fullPage: false });
-  console.log(`saved ${resolve(options.out)}`);
-  console.log(`saved ${resolve(png)}`);
-  console.log(`next: node scan.mjs ${resolve(options.out)} --json trueline/before.json`);
-} finally {
-  await browser.close();
+    const styleNode = document.createElement("style");
+    styleNode.textContent = css;
+    head.appendChild(styleNode);
+
+    return {
+      html: `<!doctype html>\n${clone.outerHTML}`,
+      cssLength: sourceLength,
+    };
+  })();
 }
+
+async function main() {
+  const options = parseArgs(process.argv.slice(2));
+  const playwright = await loadPlaywright(options.playwright);
+  const browser = await playwright.chromium.launch({
+    executablePath: options.chrome || undefined,
+    args: ["--no-sandbox", "--disable-dev-shm-usage"],
+  });
+
+  try {
+    const context = await browser.newContext({
+      viewport: { width: options.width, height: options.height },
+      colorScheme: options.scheme || "no-preference",
+    });
+    const page = await context.newPage();
+    await page.goto(targetToUrl(options.target), { waitUntil: "networkidle", timeout: 60_000 });
+    await page.evaluate(() => document.fonts?.ready);
+    await page.waitForTimeout(180);
+    await scrollAndSettle(page);
+    await page.waitForTimeout(options.wait);
+
+    const snapshot = await page.evaluate(snapshotInPage, { scheme: options.scheme });
+
+    const out = resolve(options.out);
+    mkdirSync(dirname(out), { recursive: true });
+    writeFileSync(out, snapshot.html);
+
+    const png = resolve(options.png || out.replace(/\.html?$/i, "") + ".live.png");
+    mkdirSync(dirname(png), { recursive: true });
+    await page.evaluate(() => window.scroll(0, 0));
+    await page.waitForTimeout(120);
+    await page.screenshot({ path: png });
+
+    console.log(`saved ${out}`);
+    console.log(`saved ${png}`);
+    console.log(`next: node scan.mjs ${out} --json trueline/before.json`);
+  } finally {
+    await browser.close();
+  }
+}
+
+main().catch((error) => {
+  console.error(`trueline capture: ${error?.message || error}`);
+  process.exit(1);
+});

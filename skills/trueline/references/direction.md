@@ -11,8 +11,8 @@ and wait, unless they already said "just do it". Keep it in the report either wa
 
 ### 1. Product
 
-What it does and for whom, in one plain sentence, using the nouns already on the
-page. Not the slogan. Not the category.
+The job it performs and the people it serves, in a single plain sentence, using
+the nouns already on the page. Not the slogan. Not the category.
 
 > A project workspace for three-person design studios that turns hours into an
 > invoice.
@@ -23,13 +23,13 @@ Two or three concrete words. They must be able to contradict each other.
 
 > `calm, exact, a little warm` · `fast, technical, dry` · `patient, editorial`
 
-Forbidden, because they describe every template: clean, modern, sleek, minimal,
-premium, beautiful, elegant, cutting-edge, innovative, futuristic.
+Forbidden, because they describe every template: beautiful, elegant, innovative,
+premium, sleek, modern, clean, minimal, cutting-edge, futuristic.
 
 ### 3. World
 
-The place or material the product belongs to. It sets the tint of the neutrals,
-the accent and the visual.
+The place or material the product belongs to. This world decides how the neutral
+ramp, the accent and the visual are tinted.
 
 | Product | World | Consequence |
 |---|---|---|
@@ -56,8 +56,8 @@ content moments.
 
 ### 5. Signature
 
-One small detail only this product would have, used once or twice, not five
-times.
+A single distinctive mark that belongs to this product, shown at most twice —
+never five times.
 
 > A 1 px baseline under the active project name · a keycap on every shortcut ·
 > a route line between milestones · a stamped `paid` mark on a settled invoice.
@@ -67,9 +67,9 @@ actually works.
 
 ## Keep a real brand
 
-If the product has a real logo, colour or typeface that is not slop, keep it and
-build around it. A purple-to-blue gradient with sparkles is slop even when it is
-in the logo, unless the user says the gradient is the brand.
+When a real logo, colour or typeface already exists and is not itself slop,
+preserve it and build around it. A purple-to-blue gradient with sparkles is slop
+even when it sits in the logo, unless the user says the gradient is the brand.
 
 Do not rename the product. Do not redraw a real logo. If the logo itself is an
 emoji or a glossy orb, replace it with a flat wordmark or a simple glyph in one

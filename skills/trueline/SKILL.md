@@ -93,12 +93,13 @@ Never start a full correction on a screen with no measurable signal.
 For a full correction, write five short lines and show them before touching code:
 
 - **Product** — what it does, for whom, in one plain sentence.
-- **Character** — two or three concrete words, never `clean`, `modern`, `sleek`,
-  `minimal`, `premium`.
-- **World** — the place or material the product belongs to; it sets the tint of
-  the neutrals, the accent and the visual.
+- **Character** — two or three concrete words, never generic praise such as
+  `sleek`, `premium`, `clean`, `modern` or `minimal`.
+- **World** — the place or material the product belongs to; it chooses how the
+  neutral ramp, the accent and the visual are tinted.
 - **Moments** — one or two places where the screen is allowed to be rich.
-- **Signature** — one small detail only this product would have, used once.
+- **Signature** — a single distinctive mark that could only come from this
+  product; use it no more than twice.
 
 Derive them from the page, not from the current trend. If the user already said
 "just do it", keep the direction in the report instead of waiting.
@@ -107,8 +108,8 @@ See [references/direction.md](references/direction.md).
 
 ### 4. Fix in ordered passes
 
-One pass across the whole screen before the next. Re-scan after each pass and
-append the real result to `trueline/passes.json`.
+Cover the entire screen in one pass before the next pass. Re-scan after each one
+and append the real result to `trueline/passes.json`.
 
 1. Spacing and frame
 2. Colour and depth
@@ -122,7 +123,7 @@ append the real result to `trueline/passes.json`.
 
 The order is not cosmetic: spacing changes how everything else reads, copy
 changes the length that decides the type size and the layout, and visuals and
-motion must fit a screen that already works without them.
+motion should arrive on a screen that already stands on its own.
 
 Exact starting values for every pass: [references/passes.md](references/passes.md).
 
@@ -178,8 +179,8 @@ and what you could not verify. Format: [references/report.md](references/report.
 
 ## What not to do
 
-- Do not replace removed decoration with new decoration: no new glass, grain,
-  noise, neon, blobs, bento grid or gradient.
+- Do not answer a removed effect with a fresh one: no new glass, grain, noise,
+  neon, blobs, bento grid or gradient.
 - Do not change what the product is, its features, its claims or its section
   order.
 - Do not invent plausible-looking data. Use what is on the page; if a number is

@@ -1,7 +1,7 @@
 # Passes — order, values, finish condition
 
-Finish one pass across the whole screen before starting the next. After each
-pass: re-scan, append the real score and the edits to `trueline/passes.json`.
+Complete each pass everywhere on the screen before moving to the next one. After
+each pass: re-scan, append the real score and the edits to `trueline/passes.json`.
 
 The values below are starting points for a correction without an existing design
 system. If the project already has a coherent system, keep its values and fix how
@@ -84,7 +84,8 @@ Zero tracking under 16 px. `-0.02em` from 40 px, `-0.03em` from 56 px. Numbers u
 | Card | 12–16 |
 | Panel, window | 14–20 |
 
-Nested radius: `inner = outer − padding`, never below 4.
+When one radius sits inside another, subtract the padding from the outer value
+and stop at 4 px.
 
 - Dark depth: surface steps plus a hairline. A top highlight
   `inset 0 1px 0 rgba(255,255,255,0.12)` is allowed on a raised control.
@@ -155,7 +156,7 @@ is identifiable.
 
 **Signals.** D1–D4, sometimes C1.
 
-- Headlines say what the product does for whom, with the nouns already on the
+- A headline names the product's job and its audience, using nouns already on the
   page. No invented feature, customer or number.
 - No exclamation marks, no greetings, no hype words.
 - Labels are short: `Search`, `Export`, `New project`.
@@ -193,7 +194,7 @@ different levels.
   a list, a table. Vary widths by what the content needs.
 - Break the centered stacked hero: asymmetric split with the product beside the
   text, or text over a large real view. Left-align long headlines.
-- One primary action and at most one secondary in the hero.
+- The hero carries one main action and no more than one supporting action.
 - Compose the first screen as a whole: no dead band, no card floating in a void.
 - On mobile everything stacks in reading order; a dense preview simplifies
   instead of scaling down.
@@ -204,7 +205,8 @@ different levels.
 
 **Signals.** B5, A5, E3, sometimes B1.
 
-- Radius by size and nested radius math. Not everything is a pill.
+- Radius by size; when radii nest, subtract the padding from the outer value with
+  a 4 px floor. Not everything is a pill.
 - Search, buttons, inputs and cards share one control radius.
 - Counts and meta become quiet mono text or a keycap, not glowing pills.
 - Badges (`PRO`, `New ✨`, `Beta 🚀`) go unless the product needs one, then as
@@ -223,8 +225,8 @@ a default template.
 **Signal.** Usually none; it protects the result from becoming a new template.
 
 - Remove filler: blobs, orbs, grids, glowing lines, stock robots.
-- A landing hero gets a visual that shows something true: a product preview in
-  code, a real screenshot, or one image from the product's world.
+- The landing hero needs a visual that earns its place: a product preview built
+  in code, a real screenshot, or one image drawn from the product's world.
 - Dashboards rarely need images. Their moment is a real chart, a figure set with
   care, real content, a physical object built in code.
 - The visual must carry at least one crafted moment (a chart, an object, a
@@ -245,6 +247,6 @@ still earns its place.
 - Name the properties: `transition: color 150ms`, `transition: background-color,
   border-color 150ms`.
 - One easing curve, a few durations. Press scale down, not up.
-- At most one entrance on load, a short fade and rise with a small stagger.
+- One load-in at most: a brief fade-and-lift with a small stagger.
 
 **Done when** nothing moves unless the user does something or data changes.

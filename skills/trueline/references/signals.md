@@ -103,7 +103,7 @@ footer. Equal padding everywhere reads as a template.
 **Detect.** At least 60 % of controls have a radius of half their height or more
 (999 px in static mode), with at least three controls.
 **Fix.** Radius by size: 4–6 keycap, 8–10 control, 12–16 card, 14–20 panel.
-Nested radius: inner = outer − padding, never below 4.
+When radii nest, subtract the padding from the outer value, with a 4 px floor.
 **Evidence.** Control count, pill count, share.
 
 ---

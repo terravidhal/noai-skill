@@ -26,6 +26,14 @@ Playwright/Chromium for computed styles and captures.
 The score is the point. Advice is cheap; a lower number on the same rubric,
 explained edit by edit, is checkable.
 
+### The two proofs
+
+1. **Before and after, same rubric.** Not an opinion, not a vibe: `slop 69 → 0`,
+   per category, with the selector and the measured value behind every point.
+2. **The real code changed.** Nine ordered passes, a re-scan after each one, and
+   a ledger that maps every edit to a file, a selector, a signal and a delta.
+   You can review the diff and re-run the scan yourself.
+
 ## See it
 
 | Screen | Before | After |
@@ -40,9 +48,10 @@ explained edit by edit, is checkable.
 ![Short demo: the slop screen wipes into the designed one.](assets/demo.gif)
 
 The four screens are in [`examples/before/`](examples/before/) and
-[`examples/after/`](examples/after/); every correction is documented in
-[`RAPPORT.md`](RAPPORT.md) and under [`examples/reports/`](examples/reports/)
-(one ledger and one report per screen). Each page is captured at 1440 and 390,
+[`examples/after/`](examples/after/). Each has a change ledger
+(`examples/passes*.json`) and a generated report: the dashboard is in
+[`RAPPORT.md`](RAPPORT.md), all four are under
+[`examples/reports/`](examples/reports/). Each page is captured at 1440 and 390,
 light and dark, in [`assets/readme/`](assets/readme/). Open the raw scans:
 
 ```bash
@@ -175,10 +184,37 @@ pages change.
 - The rubric will age. It is versioned; two scans with different rubrics are
   refused rather than quietly compared.
 
+## FAQ
+
+**Does it edit React, Next.js, Vue, Svelte and Tailwind?**
+Yes. The skill edits the source that renders the screen and follows the
+project's conventions; the HTML examples are only fixtures.
+
+**Do I need a browser?**
+No for static HTML and the report. Playwright is optional and used for computed
+styles, live URLs and PNG captures.
+
+**Can I keep a deliberate gradient, shadow or centered hero?**
+Yes. Declare a waiver with the signal id, the selector and a reason. It is shown
+in the report, capped at five, and never lowers the score silently.
+
+**Is the score a design review?**
+No. It measures observable slop signals. A zero means the measurable slop is
+gone, not that the direction is good; read the direction reference for that.
+
+**Does it send my page anywhere?**
+No telemetry and no model call. The scanner runs locally; `capture.mjs` fetches
+only the URL you give it, with your browser.
+
+**What if I only have a screenshot?**
+Image mode scores colour and softness at confidence 0.45 and cannot return
+selectors, copy or per-element contrast. Prefer the source when you have it.
+
 ## License
 
-MIT for this repository. The examples, brand names and numbers are fictional. No
-code, text or image from another anti-slop skill is copied; the methods are
-reimplemented from scratch. The reference project `heydamir/unslop` was read for
-method only, is not affiliated with this repository, and none of its files, text
-or images are reused here.
+MIT for this repository. The examples, brand names and numbers are fictional. The
+scanner, rubric, scripts, references and example pages were written for this
+repository; no file, prose passage or image from another anti-slop skill is
+reused. The nine-pass order and the five-line direction are a design method also
+used by [`heydamir/unslop`](https://github.com/heydamir/unslop) (CC BY 4.0); that
+project is not affiliated with this one.
