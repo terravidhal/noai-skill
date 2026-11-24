@@ -1,6 +1,6 @@
 # trueline — Orbit landing before/after
 
-Input: `examples/after/landing.html` · mode: computed DOM · rubric 1 · confidence 1
+Screen: `examples/before/landing.html` → `examples/after/landing.html` · mode: computed DOM · rubric 1 · confidence 1
 
 | | Slop | Design |
 |---|---:|---:|
@@ -34,6 +34,8 @@ The slop score fell by 67 points. Every remaining signal is listed below.
 | 7. Components | layout | 3 | — | — |
 | 8. Visual | layout | 2 | — | — |
 | 9. Motion | motion | 3 | — | — |
+
+A `—` under *Score after* means no separate scan was recorded for that pass; only the final scan is shown. The edit ledger is still complete.
 
 ## Edits
 
@@ -106,5 +108,5 @@ The slop score fell by 67 points. Every remaining signal is listed below.
 Score with the same command to reproduce:
 
 ```bash
-node scan.mjs examples/after/landing.html
+node <skill>/scripts/scan.mjs examples/after/landing.html
 ```

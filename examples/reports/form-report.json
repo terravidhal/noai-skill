@@ -3,7 +3,8 @@
   "tool": "trueline",
   "toolVersion": "1.0.0",
   "title": "trueline — Orbit new project form before/after",
-  "input": "examples/after/form.html",
+  "input": "examples/before/form.html",
+  "afterInput": "examples/after/form.html",
   "mode": "dom",
   "confidence": 1,
   "before": {

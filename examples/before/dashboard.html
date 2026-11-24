@@ -100,6 +100,19 @@
   .grow { width: 180px; height: 8px; border-radius: 999px; background: linear-gradient(90deg,#8b5cf6,#ec4899); transition: width 400ms ease; }
   .muted { color: #9ca3af; font-size: 12px; }
   .field { width: 100%; padding: 10px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.4); background: rgba(255,255,255,0.14); color: #ede9fe; }
+  @media (max-width: 700px) {
+    .shell { grid-template-columns: 1fr; padding: 12px; gap: 12px; }
+    .topbar { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .actions { flex-wrap: wrap; }
+    .grid-3 { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 </style>
 </head>
 <body>
@@ -118,10 +131,10 @@
       <div class="topbar">
         <div>
           <div class="eyebrow">Workspace analytics</div>
-          <h1>Welcome back, Alex! 👋</h1>
+          <h1>Good morning, Alex! ☀️</h1>
         </div>
         <div class="actions">
-          <button class="btn ghost" type="button">Search anything...</button>
+          <button class="btn ghost" type="button">Enter your search query...</button>
           <button class="btn" type="button">New project</button>
         </div>
       </div>
@@ -181,8 +194,8 @@
       </div>
 
       <div class="panel" style="padding: 20px;">
-        <label class="muted" for="q">Search anything about your workspace...</label>
-        <input class="field" id="q" placeholder="Search anything...">
+        <label class="muted" for="q">Enter your search query for the workspace...</label>
+        <input class="field" id="q" placeholder="Enter your search query...">
       </div>
     </main>
   </div>

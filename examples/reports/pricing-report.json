@@ -3,7 +3,8 @@
   "tool": "trueline",
   "toolVersion": "1.0.0",
   "title": "trueline — Orbit pricing before/after",
-  "input": "examples/after/pricing.html",
+  "input": "examples/before/pricing.html",
+  "afterInput": "examples/after/pricing.html",
   "mode": "dom",
   "confidence": 1,
   "before": {

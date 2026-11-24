@@ -106,7 +106,7 @@ function main() {
   const lines = [];
   lines.push(`# ${options.title}`);
   lines.push("");
-  lines.push(`Input: \`${escape(after.input)}\` · mode: ${mode} · rubric ${after.rubric} · confidence ${after.confidence}`);
+  lines.push(`Screen: \`${escape(before.input)}\` → \`${escape(after.input)}\` · mode: ${mode} · rubric ${after.rubric} · confidence ${after.confidence}`);
   lines.push("");
   lines.push("| | Slop | Design |");
   lines.push("|---|---:|---:|");
@@ -141,6 +141,10 @@ function main() {
       lines.push(`| ${escape(pass.pass)} | ${escape(pass.category || "—")} | ${edits} | ${pass.scoreAfter ?? "—"} | ${pass.delta !== undefined ? `${pass.delta >= 0 ? "+" : ""}${pass.delta}` : "—"} |`);
     }
     lines.push("");
+    if (passes.some((pass) => pass.scoreAfter === undefined || pass.scoreAfter === null)) {
+      lines.push("A `—` under *Score after* means no separate scan was recorded for that pass; only the final scan is shown. The edit ledger is still complete.");
+      lines.push("");
+    }
     const edits = passes.flatMap((pass) => (pass.changes || []).map((change) => ({ pass: pass.pass, ...change })));
     if (edits.length) {
       lines.push("## Edits");
@@ -205,7 +209,7 @@ function main() {
   lines.push("Score with the same command to reproduce:");
   lines.push("");
   lines.push("```bash");
-  lines.push(`node scan.mjs ${after.input}`);
+  lines.push(`node <skill>/scripts/scan.mjs ${after.input}`);
   lines.push("```");
   lines.push("");
 
@@ -216,7 +220,8 @@ function main() {
     tool: after.tool,
     toolVersion: after.toolVersion,
     title: options.title,
-    input: after.input,
+    input: before.input,
+    afterInput: after.input,
     mode: after.mode,
     confidence: after.confidence,
     before: { slop: before.slop, design: before.design, categories: before.categories },

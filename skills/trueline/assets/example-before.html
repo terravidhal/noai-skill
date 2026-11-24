@@ -77,6 +77,13 @@
   section p { color: #9ca3af; font-size: 12px; }
   .grow { width: 180px; height: 8px; margin: 10px auto 0; border-radius: 999px; background: linear-gradient(90deg,#8b5cf6,#ec4899); transition: width 400ms ease; }
   .field { width: 100%; padding: 10px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.4); background: rgba(255,255,255,.14); color: #ede9fe; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 </style>
 </head>
 <body>
@@ -92,8 +99,8 @@
     <div class="badges">
       <span class="badge b1">PRO</span><span class="badge b2">New</span><span class="badge b3">Beta</span><span class="badge b4">AI</span><span class="badge b5">10x</span>
     </div>
-    <p>Search anything about your workspace... <span class="dot"></span></p>
-    <input class="field" placeholder="Search anything...">
+    <p>Enter your search query for the workspace... <span class="dot"></span></p>
+    <input class="field" placeholder="Enter your search query...">
   </div>
   <div class="cards">
     <div class="card"><div>🚀</div><h2>Lightning fast</h2><p>Ship 10x faster with seamless AI workflows.</p></div>

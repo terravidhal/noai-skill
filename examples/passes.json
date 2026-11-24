@@ -34,11 +34,11 @@
       "pass": "4. Copy",
       "category": "copy",
       "changes": [
-        { "file": "examples/after/dashboard.html", "selector": "h1", "before": "Welcome back, Alex! 👋", "after": "Overview", "signal": "D2" },
+        { "file": "examples/after/dashboard.html", "selector": "h1", "before": "Good morning, Alex! ☀️", "after": "Overview", "signal": "D2" },
         { "file": "examples/after/dashboard.html", "selector": ".lede", "before": "Seamlessly unlock magic insights...", "after": "Four projects are active this month...", "signal": "D2" },
         { "file": "examples/after/dashboard.html", "selector": ".tiny", "before": "+12%!!", "after": "+12% vs October", "signal": "D2" },
-        { "file": "examples/after/dashboard.html", "selector": ".card .big", "before": "$123,456", "after": "$48,210", "signal": "D3" },
-        { "file": "examples/after/dashboard.html", "selector": "button", "before": "Search anything...", "after": "Export", "signal": "D4" }
+        { "file": "examples/after/dashboard.html", "selector": ".card .big", "before": "$123,456", "after": "$47,860", "signal": "D3" },
+        { "file": "examples/after/dashboard.html", "selector": "button", "before": "Enter your search query...", "after": "Export", "signal": "D4" }
       ]
     },
     {

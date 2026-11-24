@@ -149,6 +149,14 @@
     .table-wrap { overflow-x: auto; }
     table { min-width: 620px; }
   }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 </style>
 </head>
 <body>
@@ -182,7 +190,7 @@
       </div>
 
       <dl class="metrics">
-        <div class="metric"><dt>Revenue this month</dt><dd>$48,210 <span class="change">+12% vs October</span></dd></div>
+        <div class="metric"><dt>Revenue this month</dt><dd>$47,860 <span class="change">+12% vs October</span></dd></div>
         <div class="metric"><dt>Active projects</dt><dd>14</dd></div>
         <div class="metric"><dt>Open invoices</dt><dd>7 <span class="change">$12,480 due</span></dd></div>
         <div class="metric"><dt>Team seats</dt><dd>18</dd></div>
@@ -195,7 +203,7 @@
             <span class="hint">USD, invoiced</span>
           </div>
           <svg class="chart" viewBox="0 0 620 240" role="img" aria-labelledby="chart-title">
-            <title id="chart-title">Revenue rose from 31,400 in June to 48,210 in November.</title>
+            <title id="chart-title">Revenue rose from 31,400 in June to 47,860 in November.</title>
             <line class="grid-line" x1="40" y1="40" x2="600" y2="40"></line>
             <line class="grid-line" x1="40" y1="90" x2="600" y2="90"></line>
             <line class="grid-line" x1="40" y1="140" x2="600" y2="140"></line>

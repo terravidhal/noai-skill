@@ -16,6 +16,8 @@ folder and runnable with Node 22.
   the rubric and updates the evals.
 - Waivers need a reason and remain capped.
 - The examples keep fictional brands and data.
+- A page that moves also has a `prefers-reduced-motion: reduce` rule; the check
+  enforces it.
 
 ## Change a signal
 
@@ -31,7 +33,11 @@ folder and runnable with Node 22.
 2. `npm run lint` — the static bands must still hold.
 3. If Playwright is available:
    `npm run lint:assets -- --playwright <folder> --chrome <path>`
-4. Regenerate the report with the same viewport and theme.
+4. Check the pages in a browser:
+   `npm run lint:pages -- --playwright <folder>`. It opens every page at 1440,
+   390, light, dark and reduced motion, and fails on a console error or a motion
+   that ignores the setting.
+5. Regenerate the report with the same viewport and theme.
 
 ## Change the skill
 
@@ -45,10 +51,14 @@ skill.
 
 ```bash
 npm run lint
+npm run lint:evals
+npm run lint:original   # needs the ignored ref/unslop clone
 ```
 
 The check runs the scanner on all four example pairs, the demo asset and the
-captures, and the deterministic evals. It needs no browser and no key.
+captures, and the deterministic evals. It needs no browser and no key. The
+browser check (`lint:pages`) and `lint:assets` are optional and need Playwright;
+they are never a dependency of the installed skill.
 
 ## Style
 

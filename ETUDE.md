@@ -508,7 +508,7 @@ Chaque catégorie a un plafond ; le total des poids vaut 100. Le barème est ver
 | D1 | Copie | emojis dans l'UI | emoji Unicode dans texte/`alt`/`aria-label` | 5 |
 | D2 | Copie | exclamations / hype / salutations | `!`, « Welcome back », supercharge, seamless… | 4 |
 | D3 | Copie | données factices | `[X]`, `123,456`, Lorem, « 10,000+ teams » non sourcé | 3 |
-| D4 | Copie | libellés bavards | point final sur label/bouton, « Search anything... » | 3 |
+| D4 | Copie | libellés bavards | point final sur label/bouton, « Enter your search query... » | 3 |
 | E1 | Contraste | texte illisible | ratio WCAG < 4.5 (corps) | 5 |
 | E2 | Contraste | méta illisible | ratio < 3.0 sur les métadonnées | 2 |
 | E3 | A11y | focus/targets | pas de `:focus-visible` ou cibles < 24 px | 3 |

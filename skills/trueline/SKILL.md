@@ -92,8 +92,8 @@ Never start a full correction on a screen with no measurable signal.
 
 For a full correction, write five short lines and show them before touching code:
 
-- **Product** — what it does, for whom, in one plain sentence.
-- **Character** — two or three concrete words, never generic praise such as
+- **Product** — the job it performs and the audience it serves, in one plain sentence.
+- **Character** — two or three specific qualities, never generic praise such as
   `sleek`, `premium`, `clean`, `modern` or `minimal`.
 - **World** — the place or material the product belongs to; it chooses how the
   neutral ramp, the accent and the visual are tinted.

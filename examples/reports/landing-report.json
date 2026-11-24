@@ -3,7 +3,8 @@
   "tool": "trueline",
   "toolVersion": "1.0.0",
   "title": "trueline — Orbit landing before/after",
-  "input": "examples/after/landing.html",
+  "input": "examples/before/landing.html",
+  "afterInput": "examples/after/landing.html",
   "mode": "dom",
   "confidence": 1,
   "before": {

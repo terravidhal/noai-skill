@@ -410,6 +410,9 @@ function parseCss(css) {
         i += 1;
       }
       const body = source.slice(bodyStart, i - 1);
+      if (/^@media\b/i.test(prelude) && /(?:prefers-reduced-motion\s*:\s*reduce|(?:min|max)-width)/i.test(prelude)) {
+        continue;
+      }
       if (/^@(media|supports|layer)\b/i.test(prelude)) walk(body);
       else if (!prelude.startsWith("@")) {
         for (const selector of splitTop(prelude)) {

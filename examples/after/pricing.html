@@ -116,6 +116,14 @@
     tfoot .btn { min-height: 36px; padding: 4px 6px; font-size: 12px; white-space: normal; line-height: 1.2; }
     footer { flex-wrap: wrap; }
   }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 </style>
 </head>
 <body>

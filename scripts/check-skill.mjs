@@ -40,6 +40,8 @@ const required = [
   "skills/trueline/scripts/scan.mjs",
   "skills/trueline/scripts/capture.mjs",
   "skills/trueline/scripts/report.mjs",
+  "scripts/check-pages.mjs",
+  "scripts/check-original.mjs",
   "skills/trueline/assets/example-before.html",
   "examples/before/dashboard.html",
   "examples/before/landing.html",
@@ -141,6 +143,25 @@ function scanJson(file, extra = []) {
 
 for (const file of required) {
   if (!exists(file)) errors.push(`missing ${file}`);
+}
+
+const motionPages = [
+  "examples/before/dashboard.html",
+  "examples/before/landing.html",
+  "examples/before/pricing.html",
+  "examples/before/form.html",
+  "examples/after/dashboard.html",
+  "examples/after/landing.html",
+  "examples/after/pricing.html",
+  "examples/after/form.html",
+  "skills/trueline/assets/example-before.html",
+];
+for (const file of motionPages) {
+  if (!exists(file)) continue;
+  const source = readFileSync(join(root, file), "utf8");
+  const moves = /(?:transition|animation)\s*:/i.test(source);
+  const respects = /@media\s*\(\s*prefers-reduced-motion\s*:\s*reduce\s*\)/i.test(source);
+  if (moves && !respects) errors.push(`${file}: has motion but no prefers-reduced-motion rule`);
 }
 
 const skillFile = "skills/trueline/SKILL.md";
@@ -254,7 +275,10 @@ if (exists("skills/trueline/assets/example-before.html")) {
 
 if (exists("RAPPORT.md")) {
   const source = readFileSync(join(root, "RAPPORT.md"), "utf8");
-  for (const needle of ["| Before |", "| After |", "## Passes", "## Edits", "## Signals remaining"]) {
+  for (const needle of [
+    "| Before |", "| After |", "## Passes", "## Edits", "## Signals remaining",
+    "## Fait", "## Captures", "## Limites", "## Ce qui reste à Vidhal",
+  ]) {
     if (!source.includes(needle)) errors.push(`RAPPORT.md is missing ${needle}`);
   }
 }

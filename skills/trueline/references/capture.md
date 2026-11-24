@@ -115,7 +115,7 @@ node <skill>/scripts/scan.mjs page.html --static
 ```
 
 Static mode parses `<style>` blocks, inline styles, class/tag/id selectors,
-custom properties and common shorthands. It flattens media queries and does not
-run the full cascade. It is useful in CI and on a locked machine; it is not a
-replacement for the computed DOM. The output says `mode: "static"` and
-`confidence: 0.55`.
+custom properties and common shorthands. It ignores viewport and reduced-motion
+media queries and does not run the full cascade. It is useful in CI and on a
+locked machine; it is not a replacement for the computed DOM. The output says
+`mode: "static"` and `confidence: 0.55`.

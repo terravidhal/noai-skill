@@ -170,8 +170,8 @@ metric or a customer.
 **Evidence.** Selector and excerpt.
 
 ### D4 — Wordy labels and placeholders · 3
-**Detect.** Control/label text ending with a period, `Search anything…`,
-`Enter your…`, `Click here`, or a button longer than eight words.
+**Detect.** Control/label text ending with a period, `Enter your search query…`,
+`Click here`, or a button longer than eight words.
 **Fix.** `Search`, `Export`, `New project`. The surrounding layout explains the
 rest.
 **Evidence.** Selector and excerpt.

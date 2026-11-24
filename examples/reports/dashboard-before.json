@@ -345,7 +345,7 @@
       "evidence": [
         {
           "selector": "h1",
-          "detail": "\"Welcome back, Alex! 👋\""
+          "detail": "\"Good morning, Alex! ☀️\""
         },
         {
           "selector": "h2",
@@ -403,15 +403,15 @@
       "evidence": [
         {
           "selector": "button.btn.ghost",
-          "detail": "\"Search anything...\""
+          "detail": "\"Enter your search query...\""
         },
         {
           "selector": "label.muted",
-          "detail": "\"Search anything about your workspace...\""
+          "detail": "\"Enter your search query for the workspace...\""
         },
         {
           "selector": "input#q",
-          "detail": "\"Search anything...\""
+          "detail": "\"Enter your search query...\""
         }
       ],
       "measured": {
@@ -466,7 +466,7 @@
         },
         {
           "selector": "button.btn.ghost",
-          "detail": "1.00:1 \"Search anything...\""
+          "detail": "1.00:1 \"Enter your search query...\""
         },
         {
           "selector": "p",
@@ -583,6 +583,6 @@
     "elements": 80,
     "texts": 46,
     "surfaces": 10,
-    "durationMs": 1752
+    "durationMs": 1544
   }
 }

@@ -1,6 +1,6 @@
 # trueline — Orbit new project form before/after
 
-Input: `examples/after/form.html` · mode: computed DOM · rubric 1 · confidence 1
+Screen: `examples/before/form.html` → `examples/after/form.html` · mode: computed DOM · rubric 1 · confidence 1
 
 | | Slop | Design |
 |---|---:|---:|
@@ -34,6 +34,8 @@ The slop score fell by 54 points. Every remaining signal is listed below.
 | 7. Components | layout | 4 | — | — |
 | 8. Visual | layout | 2 | — | — |
 | 9. Motion | motion | 2 | — | — |
+
+A `—` under *Score after* means no separate scan was recorded for that pass; only the final scan is shown. The edit ledger is still complete.
 
 ## Edits
 
@@ -107,5 +109,5 @@ The slop score fell by 54 points. Every remaining signal is listed below.
 Score with the same command to reproduce:
 
 ```bash
-node scan.mjs examples/after/form.html
+node <skill>/scripts/scan.mjs examples/after/form.html
 ```

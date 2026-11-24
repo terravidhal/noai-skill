@@ -14,6 +14,8 @@
     "lint:report": "node skills/trueline/scripts/report.mjs",
     "lint:assets": "node examples/scripts/make-assets.mjs",
     "lint:capture": "node skills/trueline/scripts/capture.mjs",
+    "lint:pages": "node scripts/check-pages.mjs",
+    "lint:original": "node scripts/check-original.mjs",
     "lint:evals": "node scripts/check-skill.mjs --evals",
     "capture": "node skills/trueline/scripts/capture.mjs",
     "scan": "node skills/trueline/scripts/scan.mjs",

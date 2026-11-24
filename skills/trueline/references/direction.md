@@ -19,7 +19,7 @@ the nouns already on the page. Not the slogan. Not the category.
 
 ### 2. Character
 
-Two or three concrete words. They must be able to contradict each other.
+Two or three specific qualities that could contradict each other.
 
 > `calm, exact, a little warm` · `fast, technical, dry` · `patient, editorial`
 

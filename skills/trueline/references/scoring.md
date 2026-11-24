@@ -84,8 +84,8 @@ means a new rubric number, because old and new scans are no longer comparable.
 
 - `dom` is the reference. Use it for anything that matters.
 - `static` exists so CI and a machine without Playwright still get a score. It
-  flattens media queries, cannot resolve the full cascade and cannot measure
-  layout; it says so in `notes`.
+  ignores viewport and reduced-motion media queries, cannot resolve the full
+  cascade and cannot measure layout; it says so in `notes`.
 - `image` supports PNG only and decodes it with `node:zlib`. Do not use it as a
   substitute for the DOM when the source exists.
 

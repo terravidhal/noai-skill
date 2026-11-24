@@ -159,25 +159,30 @@ assets/readme/            1440/390, light/dark captures with Chromium
 assets/demo.gif           short before→after demo
 evals/evals.json          prompt-level behaviour checks
 scripts/check-skill.mjs   structure + deterministic evals (npm run lint)
+scripts/check-pages.mjs   browser console, light/dark, 390 and reduced motion
+scripts/check-original.mjs  shared-sequence check against ref/unslop
 ```
 
 Maintainer checks:
 
 ```bash
-npm run lint          # structure, links, JSON, assets, scanner evals
+npm run lint          # structure, links, JSON, assets, reduced motion, scanner evals
 npm run lint:evals    # the same plus contrast, waivers, hiding, report, image
+npm run lint:pages    # Playwright: console, light/dark, 390, reduced motion
+npm run lint:original # needs the ignored ref/unslop clone
 npm run lint:assets   # 32 captures, before/after sheets and demo.gif
 ```
 
-`npm run lint` needs no browser. Regenerate the screenshots only when the example
-pages change.
+`npm run lint` needs no browser. The browser and screenshot checks take
+`--playwright <folder>` when Playwright is not installed at the repository root.
+Regenerate the screenshots only when the example pages change.
 
 ## Limits
 
 - The scanner measures observable signs, not taste. A zero score with a weak
   direction is still a weak screen; the direction reference exists for that.
-- Static mode flattens media queries and cannot measure layout; use the DOM when
-  it matters.
+- Static mode ignores viewport and reduced-motion media queries and cannot measure
+  layout; use the DOM when it matters.
 - A PNG loses selectors, copy and per-element contrast. Prefer the source.
 - A deliberate gradient, a justified shadow or a centered short hero can be
   waived — with a selector, a reason and a cap of five.

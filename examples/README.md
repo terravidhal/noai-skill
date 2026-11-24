@@ -13,8 +13,11 @@ the sample data is marked as sample.
 | `before/form.html` → `after/form.html` | 54 → 0 | centered glass card, pill inputs, emoji labels, fake placeholders, proof wall → split form, grouped fields, plain labels, visible focus, dark theme |
 
 Every `after` page supports light and dark (`prefers-color-scheme`) and holds at
-1440 and 390. The captures are in [`../assets/readme/`](../assets/readme/): four
-variants per state, plus one before/after sheet per screen and a generic
+1440 and 390. All nine demo pages stop their transitions and loops under
+`prefers-reduced-motion: reduce`, and `npm run lint:pages` opens each one at
+1440, 390, light, dark and reduced motion to check for console errors. The
+captures are in [`../assets/readme/`](../assets/readme/): four variants per state,
+plus one before/after sheet per screen and a generic
 [`before-after.png`](../assets/readme/before-after.png).
 
 Change ledgers: [`passes.json`](passes.json) (dashboard),
