@@ -1,0 +1,22 @@
+{
+  "name": "trueline-skill",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Agent skill that scores AI-looking UI, fixes the real code, and proves the delta.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "lint": "node scripts/check-skill.mjs",
+    "lint:scan": "node skills/trueline/scripts/scan.mjs",
+    "lint:report": "node skills/trueline/scripts/report.mjs",
+    "lint:assets": "node examples/scripts/make-assets.mjs",
+    "lint:capture": "node skills/trueline/scripts/capture.mjs",
+    "lint:evals": "node scripts/check-skill.mjs --evals",
+    "capture": "node skills/trueline/scripts/capture.mjs",
+    "scan": "node skills/trueline/scripts/scan.mjs",
+    "report": "node skills/trueline/scripts/report.mjs"
+  }
+}

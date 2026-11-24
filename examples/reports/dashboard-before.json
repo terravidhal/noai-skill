@@ -1,0 +1,588 @@
+{
+  "rubric": "1",
+  "tool": "trueline",
+  "toolVersion": "1.0.0",
+  "input": "examples/before/dashboard.html",
+  "mode": "dom",
+  "confidence": 1,
+  "viewport": "1440x900",
+  "theme": "light",
+  "slop": 69,
+  "design": 31,
+  "categories": {
+    "color": {
+      "slop": 24,
+      "max": 30
+    },
+    "layout": {
+      "slop": 9.7,
+      "max": 20
+    },
+    "type": {
+      "slop": 2.6,
+      "max": 15
+    },
+    "copy": {
+      "slop": 13.8,
+      "max": 15
+    },
+    "contrast": {
+      "slop": 8.7,
+      "max": 10
+    },
+    "motion": {
+      "slop": 10,
+      "max": 10
+    }
+  },
+  "signals": [
+    {
+      "id": "A1",
+      "name": "purple or blue gradient surface",
+      "category": "color",
+      "weight": 6,
+      "severity": 0.85,
+      "penalty": 5.1,
+      "evidence": [
+        {
+          "selector": "a.active",
+          "detail": "linear-gradient(90deg, rgb(139, 92, 246), rgb(236, 72, 153))"
+        },
+        {
+          "selector": "h1",
+          "detail": "linear-gradient(90deg, rgb(255, 255, 255), rgb(249, 168, 212), rgb(196, 181, 253))"
+        }
+      ],
+      "measured": {
+        "count": 2
+      }
+    },
+    {
+      "id": "A2",
+      "name": "gradient text",
+      "category": "color",
+      "weight": 6,
+      "severity": 0.75,
+      "penalty": 4.5,
+      "evidence": [
+        {
+          "selector": "h1",
+          "detail": "background-clip: text; linear-gradient(90deg, rgb(255, 255, 255), rgb(249, 168, 212), rgb(196, 181, 253))"
+        }
+      ],
+      "measured": {
+        "count": 1
+      }
+    },
+    {
+      "id": "A3",
+      "name": "saturated glow",
+      "category": "color",
+      "weight": 5,
+      "severity": 1,
+      "penalty": 5,
+      "evidence": [
+        {
+          "selector": "aside.sidebar",
+          "detail": "rgba(15, 23, 42, 0.28) 0px 18px 48px 0px"
+        },
+        {
+          "selector": "span.mark",
+          "detail": "rgba(244, 114, 182, 0.6) 0px 0px 28px 0px"
+        },
+        {
+          "selector": "a.active",
+          "detail": "rgba(236, 72, 153, 0.55) 0px 0px 24px 0px"
+        },
+        {
+          "selector": "button.btn",
+          "detail": "rgba(168, 85, 247, 0.5) 0px 12px 30px 0px"
+        },
+        {
+          "selector": "div.hero",
+          "detail": "rgba(30, 27, 75, 0.35) 0px 24px 60px 0px"
+        }
+      ],
+      "measured": {
+        "count": 15
+      }
+    },
+    {
+      "id": "A4",
+      "name": "soft shadow on every surface",
+      "category": "color",
+      "weight": 4,
+      "severity": 1,
+      "penalty": 4,
+      "evidence": [
+        {
+          "selector": "aside.sidebar",
+          "detail": "rgba(15, 23, 42, 0.28) 0px 18px 48px 0px"
+        },
+        {
+          "selector": "div.hero",
+          "detail": "rgba(30, 27, 75, 0.35) 0px 24px 60px 0px"
+        },
+        {
+          "selector": "div.card",
+          "detail": "rgba(15, 23, 42, 0.28) 0px 18px 48px 0px"
+        },
+        {
+          "selector": "div.card",
+          "detail": "rgba(15, 23, 42, 0.28) 0px 18px 48px 0px"
+        },
+        {
+          "selector": "div.card",
+          "detail": "rgba(15, 23, 42, 0.28) 0px 18px 48px 0px"
+        }
+      ],
+      "measured": {
+        "surfaces": 10,
+        "withSoftShadow": 9,
+        "share": 0.9
+      }
+    },
+    {
+      "id": "A5",
+      "name": "saturated border",
+      "category": "color",
+      "weight": 3,
+      "severity": 0.8,
+      "penalty": 2.4,
+      "evidence": [
+        {
+          "selector": "aside.sidebar",
+          "detail": "1px rgba(167, 139, 250, 0.6)"
+        },
+        {
+          "selector": "div.hero",
+          "detail": "1px rgba(196, 181, 253, 0.6)"
+        },
+        {
+          "selector": "div.card",
+          "detail": "1px rgba(167, 139, 250, 0.6)"
+        },
+        {
+          "selector": "div.card",
+          "detail": "1px rgba(167, 139, 250, 0.6)"
+        },
+        {
+          "selector": "div.card",
+          "detail": "1px rgba(167, 139, 250, 0.6)"
+        }
+      ],
+      "measured": {
+        "count": 9
+      }
+    },
+    {
+      "id": "A6",
+      "name": "glassmorphism",
+      "category": "color",
+      "weight": 3,
+      "severity": 1,
+      "penalty": 3,
+      "evidence": [
+        {
+          "selector": "aside.sidebar",
+          "detail": "backdrop-filter: blur(22px)"
+        },
+        {
+          "selector": "div.hero",
+          "detail": "backdrop-filter: blur(18px)"
+        },
+        {
+          "selector": "div.card",
+          "detail": "backdrop-filter: blur(22px)"
+        },
+        {
+          "selector": "div.card",
+          "detail": "backdrop-filter: blur(22px)"
+        },
+        {
+          "selector": "div.card",
+          "detail": "backdrop-filter: blur(22px)"
+        }
+      ],
+      "measured": {
+        "count": 6
+      }
+    },
+    {
+      "id": "B1",
+      "name": "identical cards repeated",
+      "category": "layout",
+      "weight": 7,
+      "severity": 0.8,
+      "penalty": 5.6,
+      "evidence": [
+        {
+          "selector": "div.grid-3",
+          "detail": "3 siblings share the same size and structure (363x154)"
+        },
+        {
+          "selector": "div.sections",
+          "detail": "3 siblings share the same size and structure (1120x126)"
+        }
+      ],
+      "measured": {
+        "groups": 2
+      }
+    },
+    {
+      "id": "B4",
+      "name": "uniform section rhythm",
+      "category": "layout",
+      "weight": 3,
+      "severity": 0.7,
+      "penalty": 2.1,
+      "evidence": [
+        {
+          "selector": "sections",
+          "detail": "1 repeated section shape(s)"
+        }
+      ],
+      "measured": {}
+    },
+    {
+      "id": "B5",
+      "name": "everything is a pill",
+      "category": "layout",
+      "weight": 2,
+      "severity": 1,
+      "penalty": 2,
+      "evidence": [
+        {
+          "selector": "a.active",
+          "detail": "border-radius: 999px"
+        },
+        {
+          "selector": "a",
+          "detail": "border-radius: 999px"
+        },
+        {
+          "selector": "a",
+          "detail": "border-radius: 999px"
+        }
+      ],
+      "measured": {
+        "controls": 8,
+        "pills": 8,
+        "share": 1
+      }
+    },
+    {
+      "id": "C3",
+      "name": "uppercase tracked labels",
+      "category": "type",
+      "weight": 3,
+      "severity": 0.212,
+      "penalty": 0.64,
+      "evidence": [
+        {
+          "selector": "div.eyebrow",
+          "detail": "\"Workspace analytics\" 1.44px tracking"
+        }
+      ],
+      "measured": {
+        "count": 1
+      }
+    },
+    {
+      "id": "C4",
+      "name": "body text too small",
+      "category": "type",
+      "weight": 2,
+      "severity": 1,
+      "penalty": 2,
+      "evidence": [
+        {
+          "selector": "p",
+          "detail": "12px: \"Seamlessly unlock magic insights across your team.\""
+        }
+      ],
+      "measured": {
+        "body": 1,
+        "small": 1
+      }
+    },
+    {
+      "id": "D1",
+      "name": "emoji in the interface",
+      "category": "copy",
+      "weight": 5,
+      "severity": 1,
+      "penalty": 5,
+      "evidence": [
+        {
+          "selector": "a.active",
+          "detail": "\"📊 Dashboard\""
+        },
+        {
+          "selector": "a",
+          "detail": "\"🚀 Projects\""
+        },
+        {
+          "selector": "a",
+          "detail": "\"👥 Team\""
+        },
+        {
+          "selector": "a",
+          "detail": "\"💳 Billing\""
+        }
+      ],
+      "measured": {
+        "count": 8
+      }
+    },
+    {
+      "id": "D2",
+      "name": "hype copy and greetings",
+      "category": "copy",
+      "weight": 4,
+      "severity": 1,
+      "penalty": 4,
+      "evidence": [
+        {
+          "selector": "h1",
+          "detail": "\"Welcome back, Alex! 👋\""
+        },
+        {
+          "selector": "h2",
+          "detail": "\"Supercharge your workflow with AI\""
+        },
+        {
+          "selector": "p",
+          "detail": "\"Seamlessly unlock magic insights across your team. Trusted by 10,000+ teams!\""
+        },
+        {
+          "selector": "span.badge.b4",
+          "detail": "\"AI-powered\""
+        }
+      ],
+      "measured": {
+        "count": 8
+      }
+    },
+    {
+      "id": "D3",
+      "name": "placeholder data presented as real",
+      "category": "copy",
+      "weight": 3,
+      "severity": 1,
+      "penalty": 3,
+      "evidence": [
+        {
+          "selector": "p",
+          "detail": "\"Seamlessly unlock magic insights across your team. Trusted by 10,000+ teams!\""
+        },
+        {
+          "selector": "div.big",
+          "detail": "\"$123,456\""
+        },
+        {
+          "selector": "div.big",
+          "detail": "\"$123,456\""
+        },
+        {
+          "selector": "div.big",
+          "detail": "\"$123,456\""
+        }
+      ],
+      "measured": {
+        "count": 10
+      }
+    },
+    {
+      "id": "D4",
+      "name": "wordy labels and placeholders",
+      "category": "copy",
+      "weight": 3,
+      "severity": 0.6,
+      "penalty": 1.8,
+      "evidence": [
+        {
+          "selector": "button.btn.ghost",
+          "detail": "\"Search anything...\""
+        },
+        {
+          "selector": "label.muted",
+          "detail": "\"Search anything about your workspace...\""
+        },
+        {
+          "selector": "input#q",
+          "detail": "\"Search anything...\""
+        }
+      ],
+      "measured": {
+        "count": 3
+      }
+    },
+    {
+      "id": "E1",
+      "name": "unreadable body text",
+      "category": "contrast",
+      "weight": 5,
+      "severity": 1,
+      "penalty": 5,
+      "evidence": [
+        {
+          "selector": "div.brand",
+          "detail": "1.10:1 \"Orbit\""
+        },
+        {
+          "selector": "a",
+          "detail": "1.19:1 \"🚀 Projects\""
+        },
+        {
+          "selector": "a",
+          "detail": "1.19:1 \"👥 Team\""
+        },
+        {
+          "selector": "a",
+          "detail": "1.19:1 \"💳 Billing\""
+        },
+        {
+          "selector": "a",
+          "detail": "1.19:1 \"⚙️ Settings\""
+        }
+      ],
+      "measured": {
+        "checked": 12,
+        "failing": 12
+      }
+    },
+    {
+      "id": "E2",
+      "name": "unreadable meta text",
+      "category": "contrast",
+      "weight": 2,
+      "severity": 1,
+      "penalty": 2,
+      "evidence": [
+        {
+          "selector": "div.eyebrow",
+          "detail": "1.39:1 \"Workspace analytics\""
+        },
+        {
+          "selector": "button.btn.ghost",
+          "detail": "1.00:1 \"Search anything...\""
+        },
+        {
+          "selector": "p",
+          "detail": "2.54:1 \"Seamlessly unlock magic insights across your team.\""
+        },
+        {
+          "selector": "span.badge.b2",
+          "detail": "2.28:1 \"New ✨\""
+        }
+      ],
+      "measured": {
+        "checked": 27,
+        "failing": 24
+      }
+    },
+    {
+      "id": "E3",
+      "name": "keyboard focus and small targets",
+      "category": "contrast",
+      "weight": 3,
+      "severity": 0.55,
+      "penalty": 1.65,
+      "evidence": [
+        {
+          "selector": "css",
+          "detail": "no :focus-visible rule found"
+        }
+      ],
+      "measured": {
+        "focusVisible": false,
+        "smallTargets": 0
+      }
+    },
+    {
+      "id": "F1",
+      "name": "decorative infinite animation",
+      "category": "motion",
+      "weight": 4,
+      "severity": 1,
+      "penalty": 4,
+      "evidence": [
+        {
+          "selector": "span.dot",
+          "detail": "pulse infinite"
+        },
+        {
+          "selector": "span.dot",
+          "detail": "pulse infinite"
+        },
+        {
+          "selector": "span.dot",
+          "detail": "pulse infinite"
+        }
+      ],
+      "measured": {
+        "count": 3
+      }
+    },
+    {
+      "id": "F2",
+      "name": "transition-all and hover scale",
+      "category": "motion",
+      "weight": 3,
+      "severity": 1,
+      "penalty": 3,
+      "evidence": [
+        {
+          "selector": "a.active",
+          "detail": "all"
+        },
+        {
+          "selector": "a",
+          "detail": "all"
+        },
+        {
+          "selector": "a",
+          "detail": "all"
+        }
+      ],
+      "measured": {
+        "count": 7
+      }
+    },
+    {
+      "id": "F3",
+      "name": "animated layout properties",
+      "category": "motion",
+      "weight": 3,
+      "severity": 1,
+      "penalty": 3,
+      "evidence": [
+        {
+          "selector": "div.grow",
+          "detail": "width"
+        },
+        {
+          "selector": "div.grow",
+          "detail": "width"
+        },
+        {
+          "selector": "div.grow",
+          "detail": "width"
+        }
+      ],
+      "measured": {
+        "count": 3
+      }
+    }
+  ],
+  "waived": [],
+  "hiddenSelectors": [],
+  "notes": [],
+  "meta": {
+    "elements": 80,
+    "texts": 46,
+    "surfaces": 10,
+    "durationMs": 1752
+  }
+}

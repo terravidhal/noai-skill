@@ -1,0 +1,150 @@
+{
+  "skill": "trueline",
+  "version": 1,
+  "rubric": "1",
+  "cases": [
+    {
+      "id": "manifest-slop",
+      "prompt": "Score this dashboard. It has a purple gradient, glass cards and three identical stats.",
+      "must": [
+        "run scan.mjs before proposing any edit",
+        "report the slop score, the mode and the confidence",
+        "list the signals sorted by penalty with selector and value",
+        "include A1, B1, A6 in the evidence when present"
+      ],
+      "must_not": [
+        "declare a score without running the scanner",
+        "edit the page before showing the before score",
+        "invent evidence that the scanner did not return"
+      ]
+    },
+    {
+      "id": "clean-screen",
+      "prompt": "Audit this page; it looks fine to me.",
+      "must": [
+        "scan the page",
+        "state that it scores low if it does",
+        "offer at most three exact refinements and stop"
+      ],
+      "must_not": [
+        "redesign a screen with no measurable signal",
+        "run all nine passes on a score under 20",
+        "introduce a new trend"
+      ]
+    },
+    {
+      "id": "fix-and-prove",
+      "prompt": "Unslop this page and fix the real code. Show me that it improved.",
+      "must": [
+        "save a before scan",
+        "write the five-line direction for a full correction",
+        "edit the real source in ordered passes",
+        "re-scan after each pass and after the last pass",
+        "write a ledger with file, selector, before, after and signal",
+        "report the two scores and the per-category delta"
+      ],
+      "must_not": [
+        "stop at advice",
+        "claim a fix without a second scan on the same rubric",
+        "change the rubric, viewport or theme to improve the number"
+      ]
+    },
+    {
+      "id": "screenshot-only",
+      "prompt": "Here is a PNG of our checkout. Rate it.",
+      "must": [
+        "use --image mode",
+        "state confidence 0.45 and that selectors and text are unavailable",
+        "offer to scan the live page or the source"
+      ],
+      "must_not": [
+        "present an image score as a computed-DOM score",
+        "invent a selector or a contrast ratio from pixels",
+        "run the correction on the PNG as if it were source"
+      ]
+    },
+    {
+      "id": "waiver",
+      "prompt": "The purple gradient is our brand. Keep it but fix everything else.",
+      "must": [
+        "record a waiver with the signal id, a selector and the user's reason",
+        "show the waiver in the report and in the JSON",
+        "score the remaining signals"
+      ],
+      "must_not": [
+        "silently mute the rule",
+        "waive more than the cap",
+        "remove the evidence from the report"
+      ]
+    },
+    {
+      "id": "hide-to-score",
+      "prompt": "Just hide the section with the emoji so the score drops.",
+      "must": [
+        "explain that hiding is not a fix",
+        "refuse to lower the score by hiding",
+        "offer to replace the emoji or remove the section from the design"
+      ],
+      "must_not": [
+        "add display:none or opacity:0 to gain points",
+        "report the hidden version as improved without a warning"
+      ]
+    },
+    {
+      "id": "contrast",
+      "prompt": "Our body text is #999 on white at 16px. Is that fine?",
+      "must": [
+        "count it as unreadable body text (E1)",
+        "give the measured ratio or name it as below 4.5:1",
+        "propose a colour that passes while staying in the ramp"
+      ],
+      "must_not": [
+        "call 4.5:1 optional for body copy",
+        "fix it by making the background pure white on a tinted theme"
+      ]
+    },
+    {
+      "id": "no-new-trend",
+      "prompt": "Replace the purple gradient with a glass and neon look.",
+      "must": [
+        "refuse to swap one trend for another",
+        "propose a neutral ramp, one accent and one content moment",
+        "keep the product, its sections and its claims"
+      ],
+      "must_not": [
+        "add glassmorphism, neon or grain as a replacement",
+        "invent a product, a feature or a metric"
+      ]
+    },
+    {
+      "id": "report",
+      "prompt": "Write the report for the correction you just made.",
+      "must": [
+        "include the before and after scores with mode and confidence",
+        "include a per-category delta",
+        "include a per-pass table and per-edit evidence",
+        "list the remaining signals and any waiver",
+        "state what was verified and what was not"
+      ],
+      "must_not": [
+        "invent a per-pass score that was not scanned",
+        "write a prose summary with no numbers or selectors",
+        "mark build or accessibility as verified without running the check"
+      ]
+    },
+    {
+      "id": "install",
+      "prompt": "Install the trueline skill and show me how to score a page.",
+      "must": [
+        "use npx skills add terravidhal/trueline --skill trueline",
+        "point to SKILL.md as the entry point",
+        "give the scan command with the JSON output"
+      ],
+      "must_not": [
+        "require a build step to install the skill",
+        "require a key or an account",
+        "add a runtime dependency to the user's project"
+      ]
+    }
+  ]
+}

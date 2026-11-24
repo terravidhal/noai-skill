@@ -1,0 +1,118 @@
+{
+  "rubric": "1",
+  "tool": "trueline",
+  "toolVersion": "1.0.0",
+  "input": "examples/after/dashboard.html",
+  "mode": "dom",
+  "confidence": 1,
+  "viewport": "1440x900",
+  "theme": "light",
+  "slop": 0,
+  "design": 100,
+  "categories": {
+    "color": {
+      "slop": 0,
+      "max": 30
+    },
+    "layout": {
+      "slop": 0,
+      "max": 20
+    },
+    "type": {
+      "slop": 0,
+      "max": 15
+    },
+    "copy": {
+      "slop": 0,
+      "max": 15
+    },
+    "contrast": {
+      "slop": 0,
+      "max": 10
+    },
+    "motion": {
+      "slop": 0,
+      "max": 10
+    }
+  },
+  "signals": [],
+  "waived": [],
+  "hiddenSelectors": [],
+  "notes": [],
+  "meta": {
+    "elements": 135,
+    "texts": 80,
+    "surfaces": 6,
+    "durationMs": 1666
+  },
+  "compare": {
+    "before": {
+      "slop": 69,
+      "design": 31
+    },
+    "after": {
+      "slop": 0,
+      "design": 100
+    },
+    "slop": -69,
+    "design": 69,
+    "categories": {
+      "color": {
+        "before": 24,
+        "after": 0,
+        "delta": -24
+      },
+      "layout": {
+        "before": 9.7,
+        "after": 0,
+        "delta": -9.7
+      },
+      "type": {
+        "before": 2.6,
+        "after": 0,
+        "delta": -2.6
+      },
+      "copy": {
+        "before": 13.8,
+        "after": 0,
+        "delta": -13.8
+      },
+      "contrast": {
+        "before": 8.7,
+        "after": 0,
+        "delta": -8.7
+      },
+      "motion": {
+        "before": 10,
+        "after": 0,
+        "delta": -10
+      }
+    },
+    "removed": [
+      "A1",
+      "A2",
+      "A3",
+      "A4",
+      "A5",
+      "A6",
+      "B1",
+      "B4",
+      "B5",
+      "C3",
+      "C4",
+      "D1",
+      "D2",
+      "D3",
+      "D4",
+      "E1",
+      "E2",
+      "E3",
+      "F1",
+      "F2",
+      "F3"
+    ],
+    "remaining": [],
+    "appeared": [],
+    "warnings": []
+  }
+}

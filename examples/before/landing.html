@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orbit — the future of work</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Inter, Arial, sans-serif;
+    color: #6b7280;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(236, 72, 153, 0.45), transparent 45%),
+      linear-gradient(135deg, #6d28d9 0%, #2563eb 100%);
+    min-height: 100vh;
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 40px; }
+  .brand { display: flex; align-items: center; gap: 10px; color: #fff; font-weight: 800; font-size: 18px; }
+  .logo { width: 32px; height: 32px; border-radius: 999px; background: linear-gradient(135deg,#f472b6,#8b5cf6); box-shadow: 0 0 26px rgba(244,114,182,.7); }
+  .links { display: flex; gap: 8px; }
+  .links a { color: #ede9fe; text-decoration: none; padding: 8px 14px; border-radius: 999px; font-size: 12px; }
+  .links a.cta { background: linear-gradient(135deg,#a855f7,#ec4899); color: #fff; box-shadow: 0 10px 26px rgba(168,85,247,.55); }
+  .hero {
+    text-align: center;
+    padding: 64px 24px;
+    max-width: 860px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(196,181,253,0.6);
+    border-radius: 32px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 30px 80px rgba(30,27,75,0.4);
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: 999px;
+    background: rgba(255,255,255,0.16); color: #f5f3ff; font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    border: 1px solid rgba(255,255,255,0.4);
+  }
+  h1 {
+    margin: 20px 0 0; font-size: 32px; line-height: 1.15; font-weight: 800; letter-spacing: -0.6px;
+    background: linear-gradient(90deg,#ffffff,#f9a8d4,#c4b5fd);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .sub { margin: 16px auto 0; max-width: 520px; font-size: 14px; color: #c4b5fd; }
+  .actions { display: flex; justify-content: center; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+  .btn {
+    border: 0; padding: 12px 20px; border-radius: 999px; font-weight: 700; font-size: 12px; cursor: pointer;
+    color: #fff; background: linear-gradient(135deg,#a855f7,#ec4899);
+    box-shadow: 0 14px 34px rgba(168,85,247,.55);
+    transition: all 300ms ease;
+  }
+  .btn:hover { transform: scale(1.04); }
+  .btn.ghost { background: rgba(255,255,255,0.16); box-shadow: none; }
+  .trust { margin-top: 24px; font-size: 12px; color: #b0b0b0; text-transform: uppercase; letter-spacing: 0.12em; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 960px; margin: 32px auto 0; padding: 0 24px; }
+  .card {
+    padding: 22px; border-radius: 24px; text-align: center;
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(167,139,250,0.6);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 20px 48px rgba(30,27,75,0.32);
+  }
+  .card h3 { margin: 10px 0 0; font-size: 14px; font-weight: 800; color: #f5f3ff; }
+  .card p { margin: 8px 0 0; font-size: 12px; color: #9ca3af; }
+  .emoji { font-size: 28px; }
+  section {
+    max-width: 960px; margin: 24px auto 0; padding: 24px;
+    border-radius: 28px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(167,139,250,0.5);
+    box-shadow: 0 22px 60px rgba(30,27,75,0.34);
+  }
+  h2 { margin: 0; font-size: 16px; font-weight: 800; color: #f5f3ff; text-align: center; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 16px; }
+  .stat { padding: 14px; border-radius: 18px; background: rgba(255,255,255,0.1); text-align: center; }
+  .stat b { display: block; font-size: 24px; color: #fff; }
+  .stat span { font-size: 12px; color: #b0b0b0; }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 999px; background: #34d399; box-shadow: 0 0 16px rgba(52,211,153,.9); animation: pulse 1.4s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+  .footer { text-align: center; padding: 32px 24px 48px; font-size: 12px; color: #b0b0b0; }
+  .grow { height: 6px; width: 160px; margin: 12px auto 0; border-radius: 999px; background: linear-gradient(90deg,#8b5cf6,#ec4899); transition: width 400ms ease; }
+</style>
+</head>
+<body>
+  <header class="nav">
+    <div class="brand"><span class="logo"></span> Orbit</div>
+    <nav class="links">
+      <a href="#">Features</a>
+      <a href="#">Pricing</a>
+      <a href="#">Docs</a>
+      <a class="cta" href="#">Get started</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="hero">
+      <span class="badge">✨ Introducing Orbit 2.0</span>
+      <h1>Supercharge your workflow with AI</h1>
+      <p class="sub">Seamlessly unlock magic insights and revolutionize the way your team ships. It is a game changer!</p>
+      <div class="actions">
+        <button class="btn" type="button">Start free trial</button>
+        <button class="btn ghost" type="button">Book a demo</button>
+        <button class="btn ghost" type="button">Learn more</button>
+      </div>
+      <div class="trust">Trusted by 10,000+ teams</div>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="emoji">🚀</div>
+        <h3>Lightning fast</h3>
+        <p>Ship 10x faster with AI-powered automation and seamless workflows.</p>
+      </div>
+      <div class="card">
+        <div class="emoji">🚀</div>
+        <h3>Lightning fast</h3>
+        <p>Ship 10x faster with AI-powered automation and seamless workflows.</p>
+      </div>
+      <div class="card">
+        <div class="emoji">🚀</div>
+        <h3>Lightning fast</h3>
+        <p>Ship 10x faster with AI-powered automation and seamless workflows.</p>
+      </div>
+    </div>
+
+    <section>
+      <h2>Everything you need to scale</h2>
+      <div class="stats">
+        <div class="stat"><b>99.99%</b><span>Uptime SLA</span></div>
+        <div class="stat"><b>123,456</b><span>Teams onboard</span></div>
+        <div class="stat"><b>10x</b><span>Faster shipping</span></div>
+      </div>
+      <div class="grow"></div>
+    </section>
+
+    <section>
+      <h2>Loved by modern teams</h2>
+      <div class="stats">
+        <div class="stat"><b>John Doe</b><span>CEO, Acme Corp</span></div>
+        <div class="stat"><b>Jane Doe</b><span>CTO, Lorem Inc</span></div>
+        <div class="stat"><b>Foo Bar</b><span>VP, Example.com</span></div>
+      </div>
+      <div class="grow"></div>
+    </section>
+
+    <section>
+      <h2>Ready to get started? <span class="dot"></span></h2>
+      <p class="sub">Join 10,000+ teams already using Orbit. No credit card required!</p>
+      <div class="actions">
+        <button class="btn" type="button">Get started now</button>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">© 2026 Orbit. All rights reserved.</footer>
+</body>
+</html>

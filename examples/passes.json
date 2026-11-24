@@ -1,0 +1,91 @@
+{
+  "skill": "trueline",
+  "rubric": "1",
+  "screen": "Orbit workspace overview",
+  "passes": [
+    {
+      "pass": "1. Spacing and frame",
+      "category": "layout",
+      "changes": [
+        { "file": "examples/after/dashboard.html", "selector": ".shell", "before": "gap: 24px; padding: 24px", "after": "grid 248px + fluid; no outer padding", "signal": "B4" },
+        { "file": "examples/after/dashboard.html", "selector": ".main", "before": "padding: 24px", "after": "padding: 28px 32px 40px", "signal": "B4" },
+        { "file": "examples/after/dashboard.html", "selector": ".nav a", "before": "padding: 10px 14px; gap: 8px", "after": "min-height: 34px; padding: 6px 10px; gap: 2px", "signal": "B4" }
+      ]
+    },
+    {
+      "pass": "2. Color and depth",
+      "category": "color",
+      "changes": [
+        { "file": "examples/after/dashboard.html", "selector": "body", "before": "linear-gradient(135deg, #7c3aed, #2563eb)", "after": "background: #f6f7f9", "signal": "A1" },
+        { "file": "examples/after/dashboard.html", "selector": ".sidebar, .panel", "before": "rgba(255,255,255,.12) + backdrop-filter: blur(22px)", "after": "solid #fff with 1px hairline", "signal": "A6" },
+        { "file": "examples/after/dashboard.html", "selector": ".card", "before": "0 18px 48px rgba(15,23,42,.28)", "after": "no shadow; 1px hairline", "signal": "A4" },
+        { "file": "examples/after/dashboard.html", "selector": ".mark, .dot", "before": "saturated glow shadows", "after": "flat accent, no glow", "signal": "A3" },
+        { "file": "examples/after/dashboard.html", "selector": ".badge", "before": "five saturated badge colors", "after": "removed; one quiet status", "signal": "A7" }
+      ]
+    },
+    {
+      "pass": "3. Icons",
+      "category": "copy",
+      "changes": [
+        { "file": "examples/after/dashboard.html", "selector": ".nav a", "before": "emoji labels (📊 🚀 👥 💳 ⚙️)", "after": "16px line icons, one stroke", "signal": "D1" }
+      ]
+    },
+    {
+      "pass": "4. Copy",
+      "category": "copy",
+      "changes": [
+        { "file": "examples/after/dashboard.html", "selector": "h1", "before": "Welcome back, Alex! 👋", "after": "Overview", "signal": "D2" },
+        { "file": "examples/after/dashboard.html", "selector": ".lede", "before": "Seamlessly unlock magic insights...", "after": "Four projects are active this month...", "signal": "D2" },
+        { "file": "examples/after/dashboard.html", "selector": ".tiny", "before": "+12%!!", "after": "+12% vs October", "signal": "D2" },
+        { "file": "examples/after/dashboard.html", "selector": ".card .big", "before": "$123,456", "after": "$48,210", "signal": "D3" },
+        { "file": "examples/after/dashboard.html", "selector": "button", "before": "Search anything...", "after": "Export", "signal": "D4" }
+      ]
+    },
+    {
+      "pass": "5. Type",
+      "category": "type",
+      "changes": [
+        { "file": "examples/after/dashboard.html", "selector": "body", "before": "12px body, weights 700-800", "after": "14px body, weights 400-600", "signal": "C1" },
+        { "file": "examples/after/dashboard.html", "selector": "h1", "before": "20px, weight 800, letter-spacing -0.5px", "after": "32px, weight 500, letter-spacing -0.01em", "signal": "C1" },
+        { "file": "examples/after/dashboard.html", "selector": ".eyebrow", "before": "uppercase, 0.12em tracking", "after": "sentence case, no tracking", "signal": "C3" },
+        { "file": "examples/after/dashboard.html", "selector": ".muted", "before": "12px #9ca3af on translucency", "after": "12px #5f6a7d on solid surfaces", "signal": "E2" }
+      ]
+    },
+    {
+      "pass": "6. Layout",
+      "category": "layout",
+      "changes": [
+        { "file": "examples/after/dashboard.html", "selector": ".hero", "before": "centered hero card above the grid", "after": "left-aligned header, no hero card", "signal": "B3" },
+        { "file": "examples/after/dashboard.html", "selector": ".grid-3", "before": "two rows of three identical cards", "after": "metrics strip + wide chart + narrow list", "signal": "B1" },
+        { "file": "examples/after/dashboard.html", "selector": ".grid-3", "before": "grid-template-columns: repeat(3, 1fr)", "after": "1.6fr chart / 0.8fr list", "signal": "B2" },
+        { "file": "examples/after/dashboard.html", "selector": "section", "before": "three sections with identical padding", "after": "one table panel; section padding varies", "signal": "B4" }
+      ]
+    },
+    {
+      "pass": "7. Components",
+      "category": "layout",
+      "changes": [
+        { "file": "examples/after/dashboard.html", "selector": ".btn", "before": "border-radius: 999px; gradient fill", "after": "border-radius: 8px; solid accent", "signal": "B5" },
+        { "file": "examples/after/dashboard.html", "selector": ".panel, table", "before": "border-radius: 24px, saturated border", "after": "border-radius: 12px, hairline", "signal": "A5" },
+        { "file": "examples/after/dashboard.html", "selector": ".btn, .nav a", "before": "no focus rule", "after": ":focus-visible outline 2px", "signal": "E3" }
+      ]
+    },
+    {
+      "pass": "8. Visual",
+      "category": "layout",
+      "changes": [
+        { "file": "examples/after/dashboard.html", "selector": ".chart", "before": "gradient progress bar, no data", "after": "six-month revenue line with labels and one highlighted point", "signal": "B4" },
+        { "file": "examples/after/dashboard.html", "selector": "table", "before": "three repeated activity sections", "after": "recent projects table with real columns", "signal": "B1" }
+      ]
+    },
+    {
+      "pass": "9. Motion",
+      "category": "motion",
+      "changes": [
+        { "file": "examples/after/dashboard.html", "selector": ".dot", "before": "animation: pulse 1.6s infinite", "after": "static status dot", "signal": "F1" },
+        { "file": "examples/after/dashboard.html", "selector": ".card, .nav a", "before": "transition: all 300ms; hover:scale(1.03)", "after": "transition background-color / color 150ms", "signal": "F2" },
+        { "file": "examples/after/dashboard.html", "selector": ".grow", "before": "transition: width 400ms", "after": "removed", "signal": "F3" }
+      ]
+    }
+  ]
+}

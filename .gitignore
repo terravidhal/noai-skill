@@ -1,7 +1,8 @@
-ref/
-node_modules/
-.trueline/
+/ref/
+/node_modules/
+/.trueline/
+/trueline/
 .DS_Store
 *.log
-examples/.next/
-examples/node_modules/
+/examples/.next/
+/examples/node_modules/
